@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-Point WW Meal Plan & Tracker</title>
+    <!-- Using Tailwind CSS for a modern, clean, and responsive design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 600; }
+        /* Checkbox styling for shopping list */
+        input[type="checkbox"]:checked + span { text-decoration: line-through; color: #9ca3af; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-6 shadow-md">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">Zero-Point WW Blitz</h1>
+                <p class="text-blue-100 mt-1">High-Protein, Low-Effort, Auto-Pilot Meal Plan</p>
+            </div>
+            <div class="text-right hidden">
+                <!-- Weight tracker removed -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-white shadow">
+        <div class="max-w-5xl mx-auto flex overflow-x-auto">
+            <button onclick="openTab('meal-plan', this)" class="tab-btn active px-6 py-4 text-gray-600 hover:text-blue-600 outline-none whitespace-nowrap">📅 Meal Plan</button>
+            <button onclick="openTab('recipes', this)" class="tab-btn px-6 py-4 text-gray-600 hover:text-blue-600 outline-none whitespace-nowrap">📖 Recipes</button>
+            <button onclick="openTab('shopping', this)" class="tab-btn px-6 py-4 text-gray-600 hover:text-blue-600 outline-none whitespace-nowrap">🛒 Shopping List</button>
+            <button onclick="openTab('tracker', this)" class="tab-btn px-6 py-4 text-gray-600 hover:text-blue-600 outline-none whitespace-nowrap">📈 Progress & Rules</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto p-6 my-4">
+
+        <!-- MEAL PLAN TAB -->
+        <div id="meal-plan" class="tab-content active">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Month-Long Rotation</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Rotation 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 1: Sweet & Savory Chicken</h3>
+                    <div class="space-y-3">
+                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal (1/2 cup plain oats, 1 tsp maple syrup) + 2 Hard Boiled Eggs.</p>
+                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> Southwest Chicken Bowl (Shredded skinless rotisserie chicken, black beans, corn, fat-free salsa, lime).</p>
+                        <p><strong class="text-gray-900">Snack (0 pt):</strong> Tropical Bowl (1 cup fat-free cottage cheese + pineapple/apple).</p>
+                        <p><strong class="text-gray-900">Supper (0 pt):</strong> Heavy Red Turkey Chili (Top with dollop of cottage cheese).</p>
+                    </div>
+                </div>
+
+                <!-- Rotation 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 2: Balsamic Bistro</h3>
+                    <div class="space-y-3">
+                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal (1/2 cup plain oats, 1 tsp maple syrup) + 2 Hard Boiled Eggs.</p>
+                        <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> Balsamic Chicken Bowl (Dark meat rotisserie, black beans, onions, olives, cucumber, celery, balsamic, lime, Italian seasoning).</p>
+                        <p><strong class="text-gray-900">Snack (0 pt):</strong> Tropical Bowl (1 cup fat-free cottage cheese + pineapple/apple).</p>
+                        <p><strong class="text-gray-900">Supper (0 pt):</strong> Italian Egg & Potato Hash (Potatoes, peppers, onions, eggs, hot sauce, Italian seasoning).</p>
+                    </div>
+                </div>
+
+                <!-- Rotation 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 md:col-span-2">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 3: The Beef & Burger Week (8-Container Sunday Prep)</h3>
+                    <div class="space-y-3">
+                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
+                        <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> Pre-Packed Burger Bowls (Lean ground beef, iceberg lettuce, pickles, mushroom salad, cottage cheese secret sauce).</p>
+                        <p><strong class="text-gray-900">Snack (0 pt):</strong> Hard Boiled Egg or Apple.</p>
+                        <p><strong class="text-gray-900">Supper (0 pt):</strong> Heavy-Hitting Beef, Potato & Cabbage Stew (Lean beef cubes, potatoes, cabbage ribbons, beef broth, carrots/celery). </p>
+                    </div>
+                </div>
+
+                <!-- Rotation 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 4: Comfort & Coast</h3>
+                    <div class="space-y-3">
+                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal (1/2 cup plain oats, 1 tsp maple syrup) + 2 Hard Boiled Eggs.</p>
+                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> Sheet Pan Lemon Garlic Shrimp & Sweet Potato Hash (Roasted shrimp, sweet potatoes, peppers, red onions).</p>
+                        <p><strong class="text-gray-900">Snack (0 pt):</strong> Hard Boiled Egg or Apple.</p>
+                        <p><strong class="text-gray-900">Supper (0 pt):</strong> Zero-Point Shepherd's Pie (Ground turkey/chicken base, creamy cottage cheese & potato mash on top).</p>
+                    </div>
+                </div>
+
+                <!-- Rotation 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 5: Fiesta Week</h3>
+                    <div class="space-y-3">
+                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal (1/2 cup plain oats, 1 tsp maple syrup) + 2 Hard Boiled Eggs.</p>
+                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> Spinach & Tomato Egg Scramble (Reheats excellently for 4 days when properly sweated).</p>
+                        <p><strong class="text-gray-900">Snack (0 pt):</strong> Hard Boiled Egg or Apple.</p>
+                        <p><strong class="text-gray-900">Supper (0-1 pt):</strong> "Melt-In-Your-Mouth" Chicken & Fiesta Bean Salad (Yogurt/parmesan crusted chicken over corn/black bean salad).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECIPES TAB -->
+        <div id="recipes" class="tab-content">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Zero-Point Master Recipes</h2>
+            <p class="mb-6 text-gray-600 italic">Exact volumetric measurements to ensure bold flavors without point blowouts.</p>
+
+            <div class="space-y-6">
+                <!-- Recipe 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">🍔 Pre-Packed Burger Bowls (4 Lunches)</h3>
+                    <p class="text-sm text-gray-500 mb-4">A high-volume base mimicking a pub-style cheat meal.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Ingredients</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Lean ground beef</li>
+                                <li>1 tsp each: Garlic powder, onion powder, salt, pepper</li>
+                                <li>1 head iceberg lettuce (shredded)</li>
+                                <li>Diced pickles</li>
+                                <li><strong>Secret Sauce:</strong> 1 cup fat-free cottage cheese, 4 tbsp low-sugar ketchup, splash of pickle juice, pinch of garlic powder.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Instructions</h4>
+                            <ol class="list-decimal pl-5 text-sm space-y-1">
+                                <li>Brown ground beef with seasonings. Drain excess fat.</li>
+                                <li>Blend cottage cheese, ketchup, and pickle juice until silky smooth.</li>
+                                <li>Divide shredded iceberg into 4 containers.</li>
+                                <li>Top with beef, pickles, and Marinated Mushroom Salad (see below).</li>
+                                <li>Drizzle "Secret Sauce" over the top.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">🍲 Heavy-Hitting Beef, Potato & Cabbage Stew (4 Suppers)</h3>
+                    <p class="text-sm text-gray-500 mb-4">The ultimate overnight metabolic anchor.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Ingredients</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Lean beef stew meat cubes</li>
+                                <li>1/2 Spanish onion, celery, and carrots (chopped)</li>
+                                <li>Yellow potatoes (cubed)</li>
+                                <li>1/2 head of cabbage (chopped into thick ribbons)</li>
+                                <li>1 carton low-sodium beef broth</li>
+                                <li>2 tbsp Worcestershire sauce</li>
+                                <li>1.5 tsp Kosher salt, 1 tsp pepper, 1 tsp garlic powder, 1 tsp Italian seasoning</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Instructions</h4>
+                            <ol class="list-decimal pl-5 text-sm space-y-1">
+                                <li>Sear beef stew cubes with salt, pepper, garlic powder.</li>
+                                <li>Add onion, celery, carrots. Cook 3-4 mins.</li>
+                                <li>Add broth and Worcestershire. Simmer covered for 45 mins.</li>
+                                <li>Stir in cubed potatoes and cabbage ribbons.</li>
+                                <li>Simmer another 30 mins until potatoes are tender and cabbage is melted into the gravy.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">🥗 Marinated Button Mushroom Salad (Anchor Side)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Ingredients</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>2 cans whole button mushrooms (drained)</li>
+                                <li>1/2 large Spanish onion (finely chopped)</li>
+                                <li>1/3 cup red wine vinegar</li>
+                                <li>1 tbsp water + splash of pickle juice</li>
+                                <li>1 tsp salt, 1 tsp garlic powder, pepper, heavy pinch Italian seasoning</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Instructions</h4>
+                            <ol class="list-decimal pl-5 text-sm space-y-1">
+                                <li>Place mushrooms and onion in a large container.</li>
+                                <li>Whisk vinegar, water, pickle juice, and spices in a small bowl.</li>
+                                <li>Pour marinade over mushrooms, seal, and shake. Marinate in fridge.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">🍳 Italian Egg & Potato Hash ("Some Salt" Hash)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Ingredients</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Bag of fresh yellow potatoes OR frozen 0-point hash browns (cubed)</li>
+                                <li>1/2 onion & 1/2 bell pepper (diced)</li>
+                                <li>2-3 eggs</li>
+                                <li>Heavy Italian seasoning, "Some Salt" (1 tsp), pepper, hot sauce</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-600">Instructions</h4>
+                            <ol class="list-decimal pl-5 text-sm space-y-1">
+                                <li>Get non-stick skillet hot. Sauté potatoes, onions, peppers (add splash water/cover to steam if needed).</li>
+                                <li>Let moisture evaporate until potatoes get a golden-brown crust. Add seasonings into the pan so they soak in.</li>
+                                <li>Scramble or fry eggs directly into the pan. Finish with hot sauce.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SHOPPING LIST TAB -->
+        <div id="shopping" class="tab-content">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Master Grocery Lists</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-6">
+                <h3 class="text-xl font-bold text-blue-600 mb-4">The Beef & Burger Pre-Pack List (Future)</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Proteins & Dairy</h4>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Lean ground beef (for bowls)</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Lean beef stew meat cubes</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Fat-free cottage cheese (large tub)</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 Dozen eggs</span></label>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Produce</h4>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 large Spanish onion</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 bag yellow potatoes</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Celery & Carrots</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 head iceberg lettuce</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 head Cabbage (or use leftover)</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Apples</span></label>
+                    </div>
+                    <div class="md:col-span-2 mt-4">
+                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Pantry & Canned Goods</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>2-3 Cans whole button mushrooms</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>1 carton Low-sodium beef broth</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Low-sugar ketchup</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Red wine vinegar & Worcestershire sauce</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Pickles (keep the juice!)</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Rolled Oats & Maple Syrup</span></label>
+                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600"><span>Spices: Italian, Garlic powder, Onion powder, Kosher salt</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROGRESS & RULES TAB -->
+        <div id="tracker" class="tab-content">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Progress Tracker & Rules</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Weight Tracker -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-blue-600 mb-4">🏆 Journey Log</h3>
+                    <ul class="space-y-2 font-mono text-sm">
+                        <li class="bg-red-50 p-2 text-red-700 rounded">Start: 214.4 lbs</li>
+                        <li class="bg-gray-50 p-2 rounded">Day 2: 210.2 lbs (-4.2 lbs) - The Big Flush</li>
+                        <li class="bg-gray-50 p-2 rounded">Day 3: 211.6 lbs (Water bounce)</li>
+                        <li class="bg-gray-50 p-2 rounded">Day 4: 209.6 lbs</li>
+                        <li class="bg-gray-50 p-2 rounded">Post Weekend: 210.4 lbs (Trailer salt hold)</li>
+                        <li class="bg-blue-50 p-2 rounded text-blue-700">Flush Day 1: 208.8 lbs</li>
+                        <li class="bg-blue-50 p-2 rounded text-blue-700">Flush Day 2: 207.8 lbs</li>
+                        <li class="bg-green-100 p-2 rounded text-green-800 font-bold border border-green-300">Current: 206.4 lbs (Total: -8.0 lbs)</li>
+                    </ul>
+                </div>
+
+                <!-- Core Rules -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-xl font-bold text-blue-600 mb-4">⚡ Core System Rules</h3>
+                    <ul class="list-disc pl-5 space-y-3 text-gray-700">
+                        <li><strong>The Water Baseline:</strong> 3-5 jugs minimum a day. Flushes sodium, kills headaches, drops water weight.</li>
+                        <li><strong>Decision Fatigue:</strong> Rely entirely on the 8 pre-packed containers (4 lunch, 4 supper) made on Sunday.</li>
+                        <li><strong>The Snack Anchors:</strong> Apples, Hard Boiled Eggs, and 2oz portioned cups of nuts/popcorn.</li>
+                        <li><strong>The 8:15 PM Sleep Payload:</strong> Melatonin timed-release, 2x Mag Bisglycinate, 1x Omega 3-6-9. CPAP dock. No late night oatmeal.</li>
+                        <li><strong>Drinks Rule:</strong> Coke Zero before 2PM. Bubly whenever. Calorie-Free Cran to break up the water boredom.</li>
+                        <li><strong>The "Trailer/Weekend" Rule:</strong> Stick to the pre-packed main containers, but budget for a "fun not piggy" treat (e.g., 1 butter tart, small bowl Pringles).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function openTab(tabId, el) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show new tab and set active button
+            document.getElementById(tabId).classList.add('active');
+            el.classList.add('active');
+        }
+    </script>
+</body>
+</html>
