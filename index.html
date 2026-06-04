@@ -28,6 +28,7 @@
             <button onclick="openTab('recipes', this)" id="nav-recipes" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">?? Recipes</button>
             <button onclick="openTab('shopping', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">?? Shopping List</button>
             <button onclick="openTab('tracker', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">? System Rules</button>
+            <button onclick="openTab('weekend', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">🍟 Weekend Eats</button>
         </div>
     </header>
 
@@ -134,7 +135,7 @@
                     <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Italian Egg & Potato Hash</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Bag of fresh yellow potatoes (cubed)</li><li>1/2 onion & 1/2 bell pepper (diced)</li><li>2-3 eggs per portion</li><li>Italian seasoning, Salt, pepper, hot sauce</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Get non-stick skillet hot with 0-pt spray. Saut� potatoes, onions, peppers.</li><li>Let moisture evaporate until potatoes get a golden-brown crust. Add seasonings.</li><li>Scramble or fry eggs directly into the pan. Finish with hot sauce.</li></ol></div>
+                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Get non-stick skillet hot with 0-pt spray. Saut� potatoes, onions, peppers.</li><li>Let moisture evaporate until potatoes get a golden-brown crust. Add seasonings.</li><li>Scramble or fry eggs directly into the pan. Finish with hot sauce.</li></ol></div>
                     </div>
                 </div>
 
@@ -240,6 +241,147 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- WEEKEND EATS TAB -->
+        <div id="weekend" class="tab-content">
+            <h2 class="text-2xl font-bold mb-2 text-gray-800">Weekend Restaurant Guide</h2>
+            <p class="text-gray-500 mb-8">Eating out on weekends? Stay on track without ordering a salad and water. These are the <strong>lowest-point orders that still feel like a treat</strong> at each chain. Diet pop is always 0 pts — order it without guilt.</p>
+
+            <div class="space-y-6">
+
+                <!-- McDonald's -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
+                        <span class="text-2xl">🍔</span>
+                        <div>
+                            <h3 class="text-xl font-bold">McDonald's</h3>
+                            <p class="text-red-100 text-sm">The go-to: McChicken or McNuggets — classic, satisfying, cheaty enough</p>
+                        </div>
+                    </div>
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~7–8 pts total)</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between border-b pb-1"><span><strong>McChicken Sandwich</strong></span> <span class="font-bold text-orange-600">~7 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 6-Piece Chicken McNuggets</span> <span class="font-bold text-orange-600">~7 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>Apple Slices <em>(swap for fries)</em></span> <span class="font-bold text-green-600">0 pts</span></li>
+                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                                <li>The <strong>McChicken</strong> is the sweet spot — real chicken, real bun, actual flavour, only 7 pts.</li>
+                                <li>McNuggets with <strong>Sweet & Sour or BBQ sauce</strong> add ~1 pt per packet. Still worth it.</li>
+                                <li><strong>Skip the fries entirely</strong> or grab apple slices. A small fries is ~9 pts on its own — that's more than the sandwich.</li>
+                                <li>A plain <strong>Hamburger</strong> is also ~7 pts if you want beef instead.</li>
+                                <li>Avoid the McDouble and Quarter Pounder — they jump to 12–17 pts fast.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wendy's -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="bg-red-800 text-white px-6 py-4 flex items-center gap-3">
+                        <span class="text-2xl">🍔</span>
+                        <div>
+                            <h3 class="text-xl font-bold">Wendy's</h3>
+                            <p class="text-red-200 text-sm">The power move: Grilled Chicken Sandwich + Small Chili instead of fries</p>
+                        </div>
+                    </div>
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~12–13 pts total)</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between border-b pb-1"><span><strong>Grilled Chicken Sandwich</strong></span> <span class="font-bold text-orange-600">~8 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span><strong>Small Chili</strong> <em>(swap for fries)</em></span> <span class="font-bold text-orange-600">~4 pts</span></li>
+                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
+                            </ul>
+                            <div class="mt-4 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-sm">
+                                <strong>Lighter Option (~9 pts):</strong> Jr. Cheeseburger + Small Chili, skip the bun on the chili side. The Jr. is surprisingly filling at only ~9 pts solo.
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                                <li>Wendy's <strong>Small Chili</strong> is arguably the best fast food diet swap on the planet — it's a real meal, bean-heavy, and only ~4 pts. Get it instead of fries every time.</li>
+                                <li>The <strong>Grilled Chicken Sandwich</strong> uses real breast meat — not processed. That makes a difference.</li>
+                                <li>A <strong>plain Baked Potato</strong> is ~5 pts and shockingly filling if you want starch.</li>
+                                <li>Dave's Single is ~15 pts. Save it for a true cheat day — it's not bad, just not efficient.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subway -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="bg-green-700 text-white px-6 py-4 flex items-center gap-3">
+                        <span class="text-2xl">🥖</span>
+                        <div>
+                            <h3 class="text-xl font-bold">Subway</h3>
+                            <p class="text-green-100 text-sm">The most customizable chain — you can engineer a genuinely filling meal for 5–7 pts</p>
+                        </div>
+                    </div>
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~5–7 pts total)</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between border-b pb-1"><span><strong>6" Turkey Breast</strong> on 9-Grain Wheat</span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 6" Rotisserie-Style Chicken on 9-Grain Wheat</span> <span class="font-bold text-orange-600">~6–7 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>All the veggies you want (lettuce, tomato, onion, cucumber, peppers, spinach)</span> <span class="font-bold text-green-600">0 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>Mustard or Vinegar as sauce</span> <span class="font-bold text-green-600">0 pts</span></li>
+                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                                <li>Subway is the <strong>most diet-flexible fast food</strong> because you control every component. Use that power.</li>
+                                <li><strong>Pile on the free veggies.</strong> Double the lettuce and spinach — it bulks up the sub massively for 0 pts.</li>
+                                <li><strong>Mustard and vinegar</strong> are 0 pts and make the sub taste great. Avoid mayo and ranch — they add 3–5 pts immediately.</li>
+                                <li>Skipping cheese saves you ~2 pts. If you need the cheese fix, one slice of <strong>provolone</strong> is only ~1 pt.</li>
+                                <li>A 6" is genuinely filling with enough veggies. Only go 12" if you're very hungry — it doubles the points.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tim Horton's -->
+                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                    <div class="bg-red-700 text-white px-6 py-4 flex items-center gap-3">
+                        <span class="text-2xl">☕</span>
+                        <div>
+                            <h3 class="text-xl font-bold">Tim Horton's</h3>
+                            <p class="text-red-100 text-sm">Best for breakfast stops and coffee runs — the chili is a hidden gem at any hour</p>
+                        </div>
+                    </div>
+                    <div class="p-6 grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Orders</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex justify-between border-b pb-1"><span><strong>Chili (Regular)</strong></span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span><strong>BELT on English Muffin</strong> (Bacon Egg Lettuce Tomato)</span> <span class="font-bold text-orange-600">~7–8 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span><strong>Oatmeal with Berries</strong> (breakfast)</span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
+                                <li class="flex justify-between border-b pb-1"><span>Black Coffee or Tea</span> <span class="font-bold text-green-600">0 pts</span></li>
+                                <li class="flex justify-between"><span>Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                                <li>Tim's <strong>Chili</strong> is their best-kept diet secret. It's thick, protein-rich, bean-heavy, and surprisingly filling for ~5–6 pts. Works as lunch or an afternoon stop.</li>
+                                <li>The <strong>BELT on an English Muffin</strong> is the breakfast sweet spot — real ingredients, lower carb base than a bagel, and feels indulgent.</li>
+                                <li><strong>Avoid the bagels</strong> as a base. A plain bagel alone is ~7 pts before any toppings.</li>
+                                <li><strong>Coffee order tip:</strong> A splash of 1% milk to cool it down is 0 pts — totally fine. Just skip the Double Double; the cream and sugar in one is ~5 pts on its own.</li>
+                                <li>The <strong>Turkey Bacon Club wrap</strong> is ~10–12 pts — doable but not efficient. Save it for when you're truly hungry.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
