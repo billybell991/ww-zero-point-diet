@@ -6,29 +6,81 @@
     <title>Zero-Point WW Meal Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body { 
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8edf2 100%);
+            color: #2d3748;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Glassmorphism Header */
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-bottom: 2px solid #3b82f6;
+        }
+
+        /* Nav Tabs */
+        nav button {
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        nav button::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 3px;
+            background-color: #3b82f6;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        nav button:hover::after { width: 100%; }
+        nav button.active-tab {
+            background: #ffffff;
+            color: #1e3a8a;
+            border-top: 3px solid #1e40af;
+            font-weight: 700;
+        }
+        nav button.active-tab::after { width: 100%; }
+
+        /* Card Enhancements */
+        .rot-card {
+            border-left: 4px solid #3b82f6;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .rot-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .tab-btn.active { border-bottom: 2px solid #2563eb; color: #2563eb; font-weight: 600; }
+        .tab-btn { transition: background 0.15s ease, border-color 0.15s ease; border-bottom: 3px solid transparent; }
+        .tab-btn.active { border-bottom: 3px solid white !important; font-weight: 700; color: white !important; }
+        .tab-btn:hover { background: rgba(255,255,255,0.12); border-radius: 6px 6px 0 0; }
         input[type="checkbox"]:checked + span { text-decoration: line-through; color: #9ca3af; }
         html { scroll-behavior: smooth; }
+        .rot-card { transition: transform 0.15s ease, box-shadow 0.2s ease; }
+        .rot-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-b from-slate-50 to-blue-50 text-gray-800 font-sans min-h-screen">
     
-    <header class="bg-blue-600 text-white p-6 shadow-md sticky top-0 z-50">
+    <header class="text-white p-6 shadow-lg sticky top-0 z-50" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
             <div>
-                <h1 class="text-3xl font-bold">Zero-Point WW Blitz</h1>
-                <p class="text-blue-100 mt-1">High-Protein, Low-Effort, Auto-Pilot Meal Plan</p>
+                <h1 class="text-3xl font-bold tracking-tight">🥗 Zero-Point WW Blitz</h1>
+                <p class="text-blue-100 mt-1 text-sm tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan</p>
             </div>
         </div>
         <!-- Navigation Tabs -->
-        <div class="max-w-5xl mx-auto flex overflow-x-auto mt-6">
-            <button onclick="openTab('meal-plan', this)" class="tab-btn active px-6 py-4 outline-none whitespace-nowrap text-white border-white">?? Meal Plan</button>
-            <button onclick="openTab('recipes', this)" id="nav-recipes" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">?? Recipes</button>
-            <button onclick="openTab('shopping', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">?? Shopping List</button>
-            <button onclick="openTab('tracker', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">? System Rules</button>
-            <button onclick="openTab('weekend', this)" class="tab-btn px-6 py-4 text-blue-200 hover:text-white outline-none whitespace-nowrap border-transparent">🍟 Weekend Eats</button>
+        <div class="max-w-5xl mx-auto flex overflow-x-auto mt-5 gap-1">
+            <button onclick="openTab('meal-plan', this)" class="tab-btn active px-5 py-3 outline-none whitespace-nowrap text-white border-white rounded-t">📅 Meal Plan</button>
+            <button onclick="openTab('recipes', this)" id="nav-recipes" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">📖 Recipes</button>
+            <button onclick="openTab('shopping', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🛒 Shopping List</button>
+            <button onclick="openTab('tracker', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">⚙️ System Rules</button>
+            <button onclick="openTab('weekend', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍟 Weekend Eats</button>
         </div>
     </header>
 
@@ -36,13 +88,13 @@
 
         <!-- MEAL PLAN TAB -->
         <div id="meal-plan" class="tab-content active">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Month-Long Rotation</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">📆 Month-Long Rotation</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Rotation 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 transition hover:shadow-md">
+                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #3b82f6;">
                     <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600 flex justify-between">
-                        <span>Rotation 1: Sweet & Savory Chicken</span>
+                        <span>🍗 Rotation 1: Sweet & Savory Chicken</span>
                     </h3>
                     <div class="space-y-3 relative">
                         <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
@@ -53,8 +105,8 @@
                 </div>
 
                 <!-- Rotation 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 transition hover:shadow-md">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 2: Balsamic Bistro</h3>
+                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #0d9488;">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-teal-600">🫒 Rotation 2: Balsamic Bistro</h3>
                     <div class="space-y-3">
                         <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
                         <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-balsamic'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Balsamic Chicken Bowl</a></p>
@@ -64,8 +116,8 @@
                 </div>
 
                 <!-- Rotation 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 transition hover:shadow-md md:col-span-2">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 3: The Beef & Burger Week</h3>
+                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4 md:col-span-2" style="border-left-color: #f97316;">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-orange-600">🥩 Rotation 3: The Beef & Burger Week</h3>
                     <div class="space-y-3">
                         <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
                         <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-burger-bowls'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Pre-Packed Burger Bowls</a> & <a href="#" onclick="gotoRecipe('rec-mushroom-salad'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Mushroom Salad</a></p>
@@ -75,8 +127,8 @@
                 </div>
 
                 <!-- Rotation 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 transition hover:shadow-md">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 4: Comfort & Coast</h3>
+                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #7c3aed;">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-violet-600">🍤 Rotation 4: Comfort & Coast</h3>
                     <div class="space-y-3">
                         <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
                         <p><strong class="text-gray-900">Lunch (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-shrimp-hash'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Lemon Garlic Shrimp Hash</a></p>
@@ -86,8 +138,8 @@
                 </div>
 
                 <!-- Rotation 5 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 transition hover:shadow-md">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600">Rotation 5: Fiesta Week</h3>
+                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #dc2626;">
+                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-red-600">🌮 Rotation 5: Fiesta Week</h3>
                     <div class="space-y-3">
                         <p><strong class="text-gray-900">Breakfast (1 pt):</strong> Maple Oatmeal + 2 HB Eggs.</p>
                         <p><strong class="text-gray-900">Lunch (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-spinach-scramble'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Spinach & Tomato Egg Scramble</a></p>
@@ -105,7 +157,7 @@
             <div class="space-y-8">
                 
                 <div id="rec-southwest" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Southwest Chicken Bowl</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥗 Southwest Chicken Bowl</h3>
                     <p class="text-sm text-gray-500 mb-4">A fast, fresh kick of lime and zero-point salsa.</p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Shredded rotisserie chicken (skinless breast)</li><li>1 can Black beans (rinsed)</li><li>1 can Sweet corn (drained)</li><li>Fat-free salsa</li><li>Juice of 1 lime & fresh cilantro</li></ul></div>
@@ -114,7 +166,7 @@
                 </div>
 
                 <div id="rec-turkey-chili" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Heavy Red Turkey Chili</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍲 Heavy Red Turkey Chili</h3>
                     <p class="text-sm text-gray-500 mb-4">Rich, thick, and fully zero point.</p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1 lb 99% fat-free ground turkey</li><li>1 Large onion, diced</li><li>2 cans diced tomatoes (or crushed)</li><li>2 cans Kidney beans, 1 can Black beans</li><li>3 tbsp Chili powder, 1 tbsp Cumin, 1 tsp Garlic powder</li><li>1 cup beef or chicken broth</li></ul></div>
@@ -123,7 +175,7 @@
                 </div>
 
                 <div id="rec-balsamic" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Balsamic Chicken Bowl</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🫙 Balsamic Chicken Bowl</h3>
                     <p class="text-sm text-gray-500 mb-4">Mediterranean vibes with high volume veggies.</p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Shredded chicken</li><li>1 can Black beans</li><li>Diced red onions, celery, cucumbers</li><li>Sliced black olives (1 pt worth)</li><li>Balsamic vinegar & squeeze of lime</li><li>Italian seasoning</li></ul></div>
@@ -132,7 +184,7 @@
                 </div>
 
                 <div id="rec-hash" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Italian Egg & Potato Hash</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍳 Italian Egg & Potato Hash</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Bag of fresh yellow potatoes (cubed)</li><li>1/2 onion & 1/2 bell pepper (diced)</li><li>2-3 eggs per portion</li><li>Italian seasoning, Salt, pepper, hot sauce</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Get non-stick skillet hot with 0-pt spray. Saut� potatoes, onions, peppers.</li><li>Let moisture evaporate until potatoes get a golden-brown crust. Add seasonings.</li><li>Scramble or fry eggs directly into the pan. Finish with hot sauce.</li></ol></div>
@@ -140,7 +192,7 @@
                 </div>
 
                 <div id="rec-burger-bowls" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Pre-Packed Burger Bowls</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍔 Pre-Packed Burger Bowls</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Lean ground beef</li><li>Garlic powder, onion powder, salt, pepper</li><li>1 head iceberg lettuce (shredded), Diced pickles</li><li><strong>Secret Sauce:</strong> 1 cup fat-free cottage cheese, 4 tbsp low-sugar ketchup, splash of pickle juice, pinch of garlic powder.</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Brown ground beef with seasonings.</li><li>Blend cottage cheese, ketchup, and pickle juice until silky smooth.</li><li>Divide shredded iceberg. Top with beef and pickles.</li><li>Drizzle "Secret Sauce" over the top.</li></ol></div>
@@ -148,7 +200,7 @@
                 </div>
 
                 <div id="rec-mushroom-salad" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Marinated Button Mushroom Salad</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍄 Marinated Button Mushroom Salad</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>8-10 oz button mushrooms, celery, red onion</li><li>3 tbsp Apple Cider Vinegar, 1 tsp Dijon</li><li>Juice of 1/2 Lemon, 1/2 tsp Garlic powder</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Whisk vinegar, dijon, lemon, and spices.</li><li>Toss sliced mushrooms and onions into dressing. Marinate 15 mins.</li></ol></div>
@@ -156,7 +208,7 @@
                 </div>
 
                 <div id="rec-beef-stew" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Heavy-Hitting Beef, Potato & Cabbage Stew</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥩 Heavy-Hitting Beef, Potato & Cabbage Stew</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Lean beef stew meat cubes</li><li>Spanish onion, celery, carrots (chopped)</li><li>Yellow potatoes (cubed), 1/2 head cabbage</li><li>1 carton low-sodium beef broth, 2 tbsp Worcestershire</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Sear beef. Add onion, celery, carrots for 3-4 mins.</li><li>Add broth, Worcestershire, spices. Simmer 45 mins.</li><li>Stir in potatoes and cabbage. Simmer 30 mins.</li></ol></div>
@@ -164,7 +216,7 @@
                 </div>
 
                 <div id="rec-shrimp-hash" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Lemon Garlic Shrimp & Sweet Potato Hash</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍤 Lemon Garlic Shrimp & Sweet Potato Hash</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1.5 - 2 lbs Large shrimp (peeled)</li><li>2-3 medium Sweet potatoes (cubed)</li><li>2 Bell peppers, 1 Red onion, 3 cloves Garlic</li><li>1 Lemon, 1 tsp Paprika, 1 tsp Oregano</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Roast sweet potatoes, peppers, onions at 400F for 20-25 mins.</li><li>Toss shrimp with garlic, lemon, oregano.</li><li>Add shrimp to pan, roast 5-7 more mins until pink.</li></ol></div>
@@ -172,7 +224,7 @@
                 </div>
 
                 <div id="rec-shepherds-pie" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Zero-Point Shepherd's Pie</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥔 Zero-Point Shepherd's Pie</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1 lb 99% fat-free ground turkey</li><li>1 bag (16oz) Frozen mixed veg, 1 Onion</li><li>1.5 - 2 lbs Yellow/Russet potatoes</li><li>1/2 cup Fat-free cottage cheese (blended)</li><li>1 cup beef broth, 2 tbsp Worcestershire, 1 tbsp Tomato paste</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Boil potatoes. Mash with blended cottage cheese and garlic powder.</li><li>Brown turkey and onions. Add broth, paste, worcestershire, veggies. Simmer.</li><li>Pour meat to dish, top with potato mash. Bake 375F 20-25 mins.</li></ol></div>
@@ -180,7 +232,7 @@
                 </div>
 
                 <div id="rec-spinach-scramble" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? Spinach & Tomato Egg Scramble</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥚 Spinach & Tomato Egg Scramble</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>12 Whole eggs (whisked)</li><li>2 Roma tomatoes (diced)</li><li>2 handfuls baby spinach</li><li>Garlic powder, salt, pepper</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Sweat tomatoes in pan until liquid evaporates.</li><li>Wilt spinach for 60 seconds. Remove from pan.</li><li>Cook eggs low & slow. Fold veggies in before fully set.</li></ol></div>
@@ -188,7 +240,7 @@
                 </div>
 
                 <div id="rec-fiesta-chicken" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">?? "Melt" Chicken & Fiesta Bean Salad</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🧀 "Melt" Chicken & Fiesta Bean Salad</h3>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>4 Boneless skinless chicken breasts</li><li>1/2 cup Fat-free Greek yogurt</li><li>1/4 cup grated parmesan, Spices</li><li>1 can Black beans, 1 can Corn, Cherry tomatoes, Red onion, Cilantro, Lime</li></ul></div>
                         <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Mix beans, corn, tomatoes, onion, cilantro, lime juice for salad.</li><li>Mix yogurt, parmesan, and spices. Smear over chicken breasts.</li><li>Bake chicken at 375F for 30-35 mins. Serve over salad.</li></ol></div>
