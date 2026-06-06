@@ -11,9 +11,12 @@
         .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         header { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-bottom: 2px solid #3b82f6; }
-        .tab-btn { transition: background 0.15s ease, border-color 0.15s ease; border-bottom: 3px solid transparent; }
-        .tab-btn.active { border-bottom: 3px solid white !important; font-weight: 700; color: white !important; }
-        .tab-btn:hover { background: rgba(255,255,255,0.12); border-radius: 6px 6px 0 0; }
+        .tab-btn { transition: all 0.18s ease; background: rgba(255,255,255,0.12); border-radius: 10px; }
+        .tab-btn:hover { background: rgba(255,255,255,0.22); }
+        .tab-btn.active { background: #ffffff; color: #1e3a8a !important; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+        .tab-btn .btn-emoji { display: block; font-size: 1.35rem; line-height: 1; }
+        .tab-btn .btn-label { display: block; font-size: 0.7rem; margin-top: 3px; line-height: 1.2; opacity: 0.9; }
+        .tab-btn.active .btn-label { opacity: 1; }
         input[type="checkbox"]:checked + span { text-decoration: line-through; color: #9ca3af; }
         html { scroll-behavior: smooth; }
         .recipe-card { transition: transform 0.15s ease, box-shadow 0.2s ease; }
@@ -28,15 +31,31 @@
         <h1 class="text-3xl font-bold tracking-tight">🥗 Zero-Point WW Blitz</h1>
         <p class="text-blue-100 mt-1 text-sm tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan</p>
     </div>
-    <div class="max-w-5xl mx-auto flex overflow-x-auto mt-5 gap-1">
-        <button onclick="openTab('week1',this)" class="tab-btn active px-4 py-3 outline-none whitespace-nowrap text-white border-white rounded-t">🍗 Week 1</button>
-        <button onclick="openTab('week2',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🫒 Week 2</button>
-        <button onclick="openTab('week3',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🥩 Week 3</button>
-        <button onclick="openTab('week4',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍤 Week 4</button>
-        <button onclick="openTab('week5',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🌮 Week 5</button>
-        <button onclick="openTab('week6',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🧄 Week 6</button>
-        <button onclick="openTab('rules',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">⚙️ System Rules</button>
-        <button onclick="openTab('weekend',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍟 Weekend Eats</button>
+    <div class="max-w-5xl mx-auto grid grid-cols-4 sm:grid-cols-8 gap-2 mt-5">
+        <button onclick="openTab('week1',this)" class="tab-btn active text-white outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🍗</span><span class="btn-label">Week 1</span>
+        </button>
+        <button onclick="openTab('week2',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🫒</span><span class="btn-label">Week 2</span>
+        </button>
+        <button onclick="openTab('week3',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🥩</span><span class="btn-label">Week 3</span>
+        </button>
+        <button onclick="openTab('week4',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🍤</span><span class="btn-label">Week 4</span>
+        </button>
+        <button onclick="openTab('week5',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🌮</span><span class="btn-label">Week 5</span>
+        </button>
+        <button onclick="openTab('week6',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🧄</span><span class="btn-label">Week 6</span>
+        </button>
+        <button onclick="openTab('rules',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">⚙️</span><span class="btn-label">Rules</span>
+        </button>
+        <button onclick="openTab('weekend',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🍟</span><span class="btn-label">Weekend</span>
+        </button>
     </div>
 </header>
 
@@ -1288,14 +1307,15 @@
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => {
             b.classList.remove('active');
-            if (b.classList.contains('text-white')) b.classList.replace('text-white', 'text-blue-100');
-            b.classList.remove('border-white');
+            b.classList.remove('text-white');
+            b.classList.add('text-blue-100');
         });
         document.getElementById(tabId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         if (el) {
             el.classList.add('active');
-            if (el.classList.contains('text-blue-100')) el.classList.replace('text-blue-100', 'text-white');
-            el.classList.add('border-white');
+            el.classList.remove('text-blue-100');
+            el.classList.add('text-white');
         }
     }
 </script>
