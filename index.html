@@ -6,917 +6,1114 @@
     <title>Zero-Point WW Meal Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { 
-            background: linear-gradient(135deg, #f0f4f8 0%, #e8edf2 100%);
-            color: #2d3748;
-        }
+        body { background: linear-gradient(135deg, #f0f4f8 0%, #e8edf2 100%); color: #2d3748; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Glassmorphism Header */
-        header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-bottom: 2px solid #3b82f6;
-        }
-
-        /* Nav Tabs */
-        nav button {
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        nav button::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 50%;
-            width: 0; height: 3px;
-            background-color: #3b82f6;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        nav button:hover::after { width: 100%; }
-        nav button.active-tab {
-            background: #ffffff;
-            color: #1e3a8a;
-            border-top: 3px solid #1e40af;
-            font-weight: 700;
-        }
-        nav button.active-tab::after { width: 100%; }
-
-        /* Card Enhancements */
-        .rot-card {
-            border-left: 4px solid #3b82f6;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .rot-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        header { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-bottom: 2px solid #3b82f6; }
         .tab-btn { transition: background 0.15s ease, border-color 0.15s ease; border-bottom: 3px solid transparent; }
         .tab-btn.active { border-bottom: 3px solid white !important; font-weight: 700; color: white !important; }
         .tab-btn:hover { background: rgba(255,255,255,0.12); border-radius: 6px 6px 0 0; }
         input[type="checkbox"]:checked + span { text-decoration: line-through; color: #9ca3af; }
         html { scroll-behavior: smooth; }
-        .rot-card { transition: transform 0.15s ease, box-shadow 0.2s ease; }
-        .rot-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+        .recipe-card { transition: transform 0.15s ease, box-shadow 0.2s ease; }
+        .recipe-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+        .tip-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 0.75rem 1rem; border-radius: 0.25rem; font-size: 0.875rem; margin-bottom: 1rem; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-50 to-blue-50 text-gray-800 font-sans min-h-screen">
-    
-    <header class="text-white p-6 shadow-lg sticky top-0 z-50" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold tracking-tight">🥗 Zero-Point WW Blitz</h1>
-                <p class="text-blue-100 mt-1 text-sm tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan</p>
+
+<header class="text-white p-6 shadow-lg sticky top-0 z-50" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold tracking-tight">🥗 Zero-Point WW Blitz</h1>
+        <p class="text-blue-100 mt-1 text-sm tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan</p>
+    </div>
+    <div class="max-w-5xl mx-auto flex overflow-x-auto mt-5 gap-1">
+        <button onclick="openTab('week1',this)" class="tab-btn active px-4 py-3 outline-none whitespace-nowrap text-white border-white rounded-t">🍗 Week 1</button>
+        <button onclick="openTab('week2',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🫒 Week 2</button>
+        <button onclick="openTab('week3',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🥩 Week 3</button>
+        <button onclick="openTab('week4',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍤 Week 4</button>
+        <button onclick="openTab('week5',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🌮 Week 5</button>
+        <button onclick="openTab('rules',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">⚙️ System Rules</button>
+        <button onclick="openTab('weekend',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍟 Weekend Eats</button>
+    </div>
+</header>
+
+<main class="max-w-5xl mx-auto p-6 my-4">
+
+    <!-- ═══════════════════════════════════════════ WEEK 1 -->
+    <div id="week1" class="tab-content active">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🍗 Week 1: Sweet &amp; Savory Chicken</h2>
+            <p class="text-blue-50">Chicken is the star this week — versatile, lean, and deeply satisfying. Lunches are fresh and bold with Southwest flavors, while suppers bring the heat with a thick turkey chili that tastes like it simmered all day. This rotation hits maximum volume with beans, corn, and tomatoes for almost zero points.</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 1 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w1-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0 pt):</strong> <a href="#w1-southwest" class="text-blue-600 underline font-semibold hover:text-blue-800">Southwest Chicken Bowl</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w1-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w1-chili" class="text-blue-600 underline font-semibold hover:text-blue-800">Heavy Red Turkey Chili</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 1 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w1-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
             </div>
-        </div>
-        <!-- Navigation Tabs -->
-        <div class="max-w-5xl mx-auto flex overflow-x-auto mt-5 gap-1">
-            <button onclick="openTab('meal-plan', this)" class="tab-btn active px-5 py-3 outline-none whitespace-nowrap text-white border-white rounded-t">📅 Meal Plan</button>
-            <button onclick="openTab('recipes', this)" id="nav-recipes" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">📖 Recipes</button>
-            <button onclick="openTab('shopping', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🛒 Shopping List</button>
-            <button onclick="openTab('tracker', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">⚙️ System Rules</button>
-            <button onclick="openTab('weekend', this)" class="tab-btn px-5 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍟 Weekend Eats</button>
-        </div>
-    </header>
 
-    <main class="max-w-5xl mx-auto p-6 my-4">
+            <div id="w1-southwest" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥗 Southwest Chicken Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">A fast, fresh kick of lime and zero-point salsa. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>Shredded rotisserie chicken (skinless breast)</li><li>1 can Black beans (rinsed)</li><li>1 can Sweet corn (drained)</li><li>Fat-free salsa</li><li>Juice of 1 lime &amp; fresh cilantro</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Divide chicken, beans, and corn into 4 prep bowls.</li><li>Top generously with fat-free salsa.</li><li>Squeeze lime over top and garnish with cilantro.</li></ol></div>
+                </div>
+            </div>
 
-        <!-- MEAL PLAN TAB -->
-        <div id="meal-plan" class="tab-content active">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">📆 Month-Long Rotation</h2>
-            
+            <div id="w1-chili" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍲 Heavy Red Turkey Chili</h4>
+                <p class="text-sm text-gray-500 mb-3">Rich, thick, and fully zero point. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 suppers</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Serve with a dollop of blended fat-free cottage cheese as zero-point "sour cream" — takes this from good to restaurant-quality.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 lb 99% fat-free ground turkey</li><li>1 large onion, diced</li><li>2 cans diced tomatoes (or crushed)</li><li>2 cans Kidney beans, 1 can Black beans</li><li>3 tbsp Chili powder, 1 tbsp Cumin, 1 tsp Garlic powder</li><li>1 cup beef or chicken broth</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Brown turkey and onions in a large pot.</li><li>Add spices; stir until fragrant (1 min).</li><li>Add tomatoes, beans, and broth.</li><li>Simmer on low for 45 mins, stirring occasionally.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w1-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 1 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Rotation 1 -->
-                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #3b82f6;">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-blue-600 flex justify-between">
-                        <span>🍗 Rotation 1: Sweet & Savory Chicken</span>
-                    </h3>
-                    <div class="space-y-3 relative">
-                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-oatmeal'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Maple Oatmeal</a>.</p>
-                        <p><strong class="text-gray-900">AM Snack (0 pt):</strong> 1 Hard Boiled Egg.</p>
-                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-southwest'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Southwest Chicken Bowl</a></p>
-                        <p><strong class="text-gray-900">PM Snack (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-tropical-bowl'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Tropical Bowl</a>, apple, or banana.</p>
-                        <p><strong class="text-gray-900">Supper (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-turkey-chili'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Heavy Red Turkey Chili</a></p>
-                        <p><strong class="text-gray-900">Late Snack:</strong> 2 cups air-popped popcorn (with canola oil & salt).</p>
-                    </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Rotisserie Chicken (skinless breast)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 lb 99% fat-free ground turkey</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small tub Fat-Free Greek Yogurt</span></label>
                 </div>
-
-                <!-- Rotation 2 -->
-                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #0d9488;">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-teal-600">🫒 Rotation 2: Balsamic Bistro</h3>
-                    <div class="space-y-3">
-                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-oatmeal'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Maple Oatmeal</a>.</p>
-                        <p><strong class="text-gray-900">AM Snack (0 pt):</strong> 1 Hard Boiled Egg.</p>
-                        <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-balsamic'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Balsamic Chicken Bowl</a></p>
-                        <p><strong class="text-gray-900">PM Snack (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-tropical-bowl'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Tropical Bowl</a>, apple, or banana.</p>
-                        <p><strong class="text-gray-900">Supper (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-hash'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Italian Egg & Potato Hash</a></p>
-                        <p><strong class="text-gray-900">Late Snack:</strong> 2 cups air-popped popcorn (with canola oil & salt).</p>
-                    </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Large Spanish Onion</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Limes &amp; Fresh Cilantro</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Pineapple (fresh or canned in juice)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Apples &amp; Bananas</span></label>
                 </div>
-
-                <!-- Rotation 3 -->
-                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4 md:col-span-2" style="border-left-color: #f97316;">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-orange-600">🥩 Rotation 3: The Beef & Burger Week</h3>
-                    <div class="space-y-3">
-                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-oatmeal'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Maple Oatmeal</a>.</p>
-                        <p><strong class="text-gray-900">AM Snack (0 pt):</strong> 1 Hard Boiled Egg.</p>
-                        <p><strong class="text-gray-900">Lunch (0-1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-burger-bowls'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Pre-Packed Burger Bowls</a> & <a href="#" onclick="gotoRecipe('rec-mushroom-salad'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Mushroom Salad</a></p>
-                        <p><strong class="text-gray-900">PM Snack (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-tropical-bowl'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Tropical Bowl</a>, apple, or banana.</p>
-                        <p><strong class="text-gray-900">Supper (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-beef-stew'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Beef, Potato & Cabbage Stew</a></p>
-                        <p><strong class="text-gray-900">Late Snack:</strong> 2 cups air-popped popcorn (with canola oil & salt).</p>
-                    </div>
-                </div>
-
-                <!-- Rotation 4 -->
-                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #7c3aed;">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-violet-600">🍤 Rotation 4: Comfort & Coast</h3>
-                    <div class="space-y-3">
-                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-oatmeal'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Maple Oatmeal</a>.</p>
-                        <p><strong class="text-gray-900">AM Snack (0 pt):</strong> 1 Hard Boiled Egg.</p>
-                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-shrimp-hash'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Lemon Garlic Shrimp Hash</a></p>
-                        <p><strong class="text-gray-900">PM Snack (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-tropical-bowl'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Tropical Bowl</a>, apple, or banana.</p>
-                        <p><strong class="text-gray-900">Supper (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-shepherds-pie'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Zero-Point Shepherd's Pie</a></p>
-                        <p><strong class="text-gray-900">Late Snack:</strong> 2 cups air-popped popcorn (with canola oil & salt).</p>
-                    </div>
-                </div>
-
-                <!-- Rotation 5 -->
-                <div class="rot-card bg-white p-6 rounded-lg shadow-sm border border-gray-100 border-l-4" style="border-left-color: #dc2626;">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-4 text-red-600">🌮 Rotation 5: Fiesta Week</h3>
-                    <div class="space-y-3">
-                        <p><strong class="text-gray-900">Breakfast (1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-oatmeal'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Maple Oatmeal</a>.</p>
-                        <p><strong class="text-gray-900">AM Snack (0 pt):</strong> 1 Hard Boiled Egg.</p>
-                        <p><strong class="text-gray-900">Lunch (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-spinach-scramble'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Spinach & Tomato Egg Scramble</a></p>
-                        <p><strong class="text-gray-900">PM Snack (0 pt):</strong> <a href="#" onclick="gotoRecipe('rec-tropical-bowl'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Tropical Bowl</a>, apple, or banana.</p>
-                        <p><strong class="text-gray-900">Supper (0-1 pt):</strong> <a href="#" onclick="gotoRecipe('rec-fiesta-chicken'); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800 cursor-pointer">Chicken & Fiesta Bean Salad</a></p>
-                        <p><strong class="text-gray-900">Late Snack:</strong> 2 cups air-popped popcorn (with canola oil & salt).</p>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>3 cans Black Beans</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 cans Kidney Beans</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Sweet Corn</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 cans Diced or Crushed Tomatoes</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Fat-Free Salsa (large jar)</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Low-Sodium Beef or Chicken Broth</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Chili Powder, Cumin, Garlic Powder, Cinnamon</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- RECIPES TAB -->
-        <div id="recipes" class="tab-content pt-4">
-            <h2 class="text-3xl font-bold mb-8 text-gray-800 border-b pb-4">Zero-Point Master Recipes</h2>
+    <!-- ═══════════════════════════════════════════ WEEK 2 -->
+    <div id="week2" class="tab-content">
+        <div class="bg-gradient-to-r from-teal-600 to-teal-400 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🫒 Week 2: Balsamic Bistro</h2>
+            <p class="text-teal-50">Mediterranean-inspired this week — sharp balsamic chicken bowls for lunch and a hearty egg &amp; potato hash for supper that hits like real comfort food. Heavy on volume-eating with big raw veggie loads at zero points. The balsamic dressing pulls everything together.</p>
+        </div>
 
-            <div class="space-y-8">
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 2 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w2-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0-1 pt):</strong> <a href="#w2-balsamic" class="text-blue-600 underline font-semibold hover:text-blue-800">Balsamic Chicken Bowl</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w2-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w2-hash" class="text-blue-600 underline font-semibold hover:text-blue-800">Italian Egg &amp; Potato Hash</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
 
-                <div id="rec-oatmeal" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥣 Maple Cinnamon Oatmeal</h3>
-                    <p class="text-sm text-gray-500 mb-4">A warm, filing, and perfectly sweet morning classic.</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1/2 cup Rolled Oatmeal</li><li>3/4 cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and top with a sprinkle of cinnamon.</li></ol></div>
-                    </div>
-                </div>
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 2 Recipes</h3>
+        <div class="space-y-6 mb-8">
 
-                <div id="rec-tropical-bowl" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍍 Tropical Fruit Bowl</h3>
-                    <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein treat to end the day.</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1 cup Fat-free Cottage Cheese (or Fat-free Greek Yogurt)</li><li>1/2 cup diced Pineapple</li><li>1 whole Apple (diced)</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Add cottage cheese or greek yogurt to a bowl.</li><li>Top with chopped pineapple and diced apple. Enjoy cold.</li></ol></div>
-                    </div>
-                </div>
-
-                
-                <div id="rec-southwest" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥗 Southwest Chicken Bowl</h3>
-                    <p class="text-sm text-gray-500 mb-4">A fast, fresh kick of lime and zero-point salsa.</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Shredded rotisserie chicken (skinless breast)</li><li>1 can Black beans (rinsed)</li><li>1 can Sweet corn (drained)</li><li>Fat-free salsa</li><li>Juice of 1 lime & fresh cilantro</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Combine bounds of chicken, beans, and corn in 4 prep bowls.</li><li>Top generously with fat-free salsa.</li><li>Squeeze lime over top and garnish with cilantro.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-turkey-chili" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍲 Heavy Red Turkey Chili</h3>
-                    <p class="text-sm text-gray-500 mb-4">Rich, thick, and fully zero point.</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1 lb 99% fat-free ground turkey</li><li>1 Large onion, diced</li><li>2 cans diced tomatoes (or crushed)</li><li>2 cans Kidney beans, 1 can Black beans</li><li>3 tbsp Chili powder, 1 tbsp Cumin, 1 tsp Garlic powder</li><li>1 cup beef or chicken broth</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Brown turkey and onions.</li><li>Add spices and stir until fragrant (1 min).</li><li>Add tomatoes, beans, and broth.</li><li>Simmer on low for 45 mins. Serve with a dollop of blended fat-free cottage cheese as "sour cream".</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-balsamic" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🫙 Balsamic Chicken Bowl</h3>
-                    <p class="text-sm text-gray-500 mb-4">Mediterranean vibes with high volume veggies.</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Shredded chicken</li><li>1 can Black beans</li><li>Diced red onions, celery, cucumbers</li><li>Sliced black olives (1 pt worth)</li><li>Balsamic vinegar & squeeze of lime</li><li>Italian seasoning</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Toss the chicken and veggies together.</li><li>Dress directly with balsamic vinegar and lime juice.</li><li>Add Italian seasoning, salt, and pepper to taste.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-hash" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍳 Italian Egg & Potato Hash</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Bag of fresh yellow potatoes (cubed)</li><li>1/2 onion & 1/2 bell pepper (diced)</li><li>2-3 eggs per portion</li><li>Italian seasoning, Salt, pepper, hot sauce</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Get non-stick skillet hot with 0-pt spray. Saut� potatoes, onions, peppers.</li><li>Let moisture evaporate until potatoes get a golden-brown crust. Add seasonings.</li><li>Scramble or fry eggs directly into the pan. Finish with hot sauce.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-burger-bowls" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍔 Pre-Packed Burger Bowls</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Lean ground beef</li><li>Garlic powder, onion powder, salt, pepper</li><li>1 head iceberg lettuce (shredded), Diced pickles</li><li><strong>Secret Sauce:</strong> 1 cup fat-free cottage cheese, 4 tbsp low-sugar ketchup, splash of pickle juice, pinch of garlic powder.</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Brown ground beef with seasonings.</li><li>Blend cottage cheese, ketchup, and pickle juice until silky smooth.</li><li>Divide shredded iceberg. Top with beef and pickles.</li><li>Drizzle "Secret Sauce" over the top.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-mushroom-salad" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍄 Marinated Button Mushroom Salad</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>8-10 oz button mushrooms, celery, red onion</li><li>3 tbsp Apple Cider Vinegar, 1 tsp Dijon</li><li>Juice of 1/2 Lemon, 1/2 tsp Garlic powder</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Whisk vinegar, dijon, lemon, and spices.</li><li>Toss sliced mushrooms and onions into dressing. Marinate 15 mins.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-beef-stew" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥩 Heavy-Hitting Beef, Potato & Cabbage Stew</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>Lean beef stew meat cubes</li><li>Spanish onion, celery, carrots (chopped)</li><li>Yellow potatoes (cubed), 1/2 head cabbage</li><li>1 carton low-sodium beef broth, 2 tbsp Worcestershire</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Sear beef. Add onion, celery, carrots for 3-4 mins.</li><li>Add broth, Worcestershire, spices. Simmer 45 mins.</li><li>Stir in potatoes and cabbage. Simmer 30 mins.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-shrimp-hash" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🍤 Lemon Garlic Shrimp & Sweet Potato Hash</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1.5 - 2 lbs Large shrimp (peeled)</li><li>2-3 medium Sweet potatoes (cubed)</li><li>2 Bell peppers, 1 Red onion, 3 cloves Garlic</li><li>1 Lemon, 1 tsp Paprika, 1 tsp Oregano</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Roast sweet potatoes, peppers, onions at 400F for 20-25 mins.</li><li>Toss shrimp with garlic, lemon, oregano.</li><li>Add shrimp to pan, roast 5-7 more mins until pink.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-shepherds-pie" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥔 Zero-Point Shepherd's Pie</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>1 lb 99% fat-free ground turkey</li><li>1 bag (16oz) Frozen mixed veg, 1 Onion</li><li>1.5 - 2 lbs Yellow/Russet potatoes</li><li>1/2 cup Fat-free cottage cheese (blended)</li><li>1 cup beef broth, 2 tbsp Worcestershire, 1 tbsp Tomato paste</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Boil potatoes. Mash with blended cottage cheese and garlic powder.</li><li>Brown turkey and onions. Add broth, paste, worcestershire, veggies. Simmer.</li><li>Pour meat to dish, top with potato mash. Bake 375F 20-25 mins.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-spinach-scramble" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🥚 Spinach & Tomato Egg Scramble</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>12 Whole eggs (whisked)</li><li>2 Roma tomatoes (diced)</li><li>2 handfuls baby spinach</li><li>Garlic powder, salt, pepper</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Sweat tomatoes in pan until liquid evaporates.</li><li>Wilt spinach for 60 seconds. Remove from pan.</li><li>Cook eggs low & slow. Fold veggies in before fully set.</li></ol></div>
-                    </div>
-                </div>
-
-                <div id="rec-fiesta-chicken" class="bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">🧀 "Melt" Chicken & Fiesta Bean Salad</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div><h4 class="font-semibold text-blue-600">Ingredients</h4><ul class="list-disc pl-5 text-sm space-y-1 mt-2"><li>4 Boneless skinless chicken breasts</li><li>1/2 cup Fat-free Greek yogurt</li><li>1/4 cup grated parmesan, Spices</li><li>1 can Black beans, 1 can Corn, Cherry tomatoes, Red onion, Cilantro, Lime</li></ul></div>
-                        <div><h4 class="font-semibold text-blue-600">Instructions</h4><ol class="list-decimal pl-5 text-sm space-y-1 mt-2"><li>Mix beans, corn, tomatoes, onion, cilantro, lime juice for salad.</li><li>Mix yogurt, parmesan, and spices. Smear over chicken breasts.</li><li>Bake chicken at 375F for 30-35 mins. Serve over salad.</li></ol></div>
-                    </div>
+            <div id="w2-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
                 </div>
             </div>
-        </div>
 
-        <!-- SHOPPING LIST TAB -->
-        <div id="shopping" class="tab-content">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Master Grocery Lists (All Rotations)</h2>
-            
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Proteins & Dairy</h4>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>2-3 lbs Lean ground beef / stew meat</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>2 lbs 99% fat-free ground turkey</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>4-6 Chicken Breasts / Rotisserie Chicken</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>1.5-2 lbs Large Shrimp (peeled/deveined)</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Large Tub Fat-Free Cottage Cheese</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Small Tub Fat-Free Greek Yogurt</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>2-3 Dozen Eggs</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Parmesan Cheese</span></label>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Produce</h4>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>1 bag Yellow/Russet Potatoes</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Sweet Potatoes</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Onions (Spanish, Red) & Garlic</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Bell Peppers, Celery, Carrots</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Tomatoes (Cherry & Roma)</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Baby Spinach & Iceberg Lettuce</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>1 head Cabbage</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Lemons & Limes, Fresh Cilantro</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Apples / Fruit</span></label>
-                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Mushrooms (Button/Cremini)</span></label>
-                    </div>
-                    <div class="md:col-span-2 mt-4">
-                        <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded">Pantry & Canned Goods</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Canned Beans (Black, Kidney) & Corn</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Low-sodium broth (Beef & Chicken)</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Low-sugar ketchup & Tomato Paste</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Red wine vinegar & Balsamic vinegar</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Pickles & Olives</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Plain Rolled Oats & Maple Syrup</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Fat-free Salsa</span></label>
-                            <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4 text-blue-600 text-lg"><span>Frozen Mixed Vegetables</span></label>
-                        </div>
-                    </div>
+            <div id="w2-balsamic" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🫙 Balsamic Chicken Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Mediterranean vibes with high-volume veggies. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>Shredded chicken (rotisserie, skinless)</li><li>1 can Black beans (rinsed)</li><li>Diced red onion, celery, cucumbers</li><li>Sliced black olives (1 pt worth)</li><li>Balsamic vinegar &amp; squeeze of lime</li><li>Italian seasoning, salt, pepper</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Toss the chicken and veggies together in a large bowl.</li><li>Dress directly with balsamic vinegar and lime juice.</li><li>Season with Italian seasoning, salt, and pepper.</li><li>Divide into 4 containers and refrigerate.</li></ol></div>
                 </div>
             </div>
+
+            <div id="w2-hash" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍳 Italian Egg &amp; Potato Hash</h4>
+                <p class="text-sm text-gray-500 mb-3">Crispy golden potatoes, fluffy eggs, Italian seasoning — pure comfort food.</p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Don't rush the potatoes! Let them sit undisturbed in a hot non-stick pan to develop a real golden-brown crust — that's what makes this feel like a proper restaurant dish.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients (per supper)</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>Yellow potatoes (cubed — load them up)</li><li>½ onion &amp; ½ bell pepper (diced)</li><li>2-3 eggs</li><li>Italian seasoning, salt, pepper, hot sauce</li><li>Zero-point non-stick cooking spray</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Heat non-stick skillet well with cooking spray. Add potatoes, onion, peppers.</li><li>Cook until moisture evaporates and potatoes get a golden crust. Don't over-stir.</li><li>Season with Italian seasoning, salt, and pepper.</li><li>Crack eggs directly into the pan. Scramble or fry to preference. Finish with hot sauce.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w2-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- WEEKEND EATS TAB -->
-        <div id="weekend" class="tab-content">
-            <h2 class="text-2xl font-bold mb-2 text-gray-800">Weekend Restaurant Guide</h2>
-            <p class="text-gray-500 mb-8">Eating out on weekends? Stay on track without ordering a salad and water. These are the <strong>lowest-point orders that still feel like a treat</strong> at each chain. <em>(Note: Menu items and points are based on Canadian menus for the Ottawa, ON area).</em> Diet pop is always 0 pts — order it without guilt.</p>
-
-            <div class="space-y-6">
-
-                <!-- McDonald's -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍔</span>
-                        <div>
-                            <h3 class="text-xl font-bold">McDonald's</h3>
-                            <p class="text-red-100 text-sm">The go-to: McChicken or McNuggets — classic, satisfying, cheaty enough</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~7–8 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>McChicken Sandwich</strong></span> <span class="font-bold text-orange-600">~7 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 6-Piece Chicken McNuggets</span> <span class="font-bold text-orange-600">~7 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Apple Slices <em>(swap for fries)</em></span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>The <strong>McChicken</strong> is the sweet spot — real chicken, real bun, actual flavour, only 7 pts.</li>
-                                <li>McNuggets with <strong>Sweet & Sour or BBQ sauce</strong> add ~1 pt per packet. Still worth it.</li>
-                                <li><strong>Skip the fries entirely</strong> or grab apple slices. A small fries is ~9 pts on its own — that's more than the sandwich.</li>
-                                <li>A plain <strong>Hamburger</strong> is also ~7 pts if you want beef instead.</li>
-                                <li>Avoid the McDouble and Quarter Pounder — they jump to 12–17 pts fast.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wendy's -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-800 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍔</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Wendy's</h3>
-                            <p class="text-red-200 text-sm">The power move: Grilled Chicken Sandwich + Small Chili instead of fries</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~12–13 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Grilled Chicken Sandwich</strong></span> <span class="font-bold text-orange-600">~8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><strong>Small Chili</strong> <em>(swap for fries)</em></span> <span class="font-bold text-orange-600">~4 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                            <div class="mt-4 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-sm">
-                                <strong>Lighter Option (~9 pts):</strong> Jr. Cheeseburger + Small Chili, skip the bun on the chili side. The Jr. is surprisingly filling at only ~9 pts solo.
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Wendy's <strong>Small Chili</strong> is arguably the best fast food diet swap on the planet — it's a real meal, bean-heavy, and only ~4 pts. Get it instead of fries every time.</li>
-                                <li>The <strong>Grilled Chicken Sandwich</strong> uses real breast meat — not processed. That makes a difference.</li>
-                                <li>A <strong>plain Baked Potato</strong> is ~5 pts and shockingly filling if you want starch.</li>
-                                <li>Dave's Single is ~15 pts. Save it for a true cheat day — it's not bad, just not efficient.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Subway -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-green-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥖</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Subway</h3>
-                            <p class="text-green-100 text-sm">The most customizable chain — you can engineer a genuinely filling meal for 5–7 pts</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~5–7 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>6" Turkey Breast</strong> on 9-Grain Wheat</span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 6" Rotisserie-Style Chicken on 9-Grain Wheat</span> <span class="font-bold text-orange-600">~6–7 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>All the veggies you want (lettuce, tomato, onion, cucumber, peppers, spinach)</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Mustard or Vinegar as sauce</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Subway is the <strong>most diet-flexible fast food</strong> because you control every component. Use that power.</li>
-                                <li><strong>Pile on the free veggies.</strong> Double the lettuce and spinach — it bulks up the sub massively for 0 pts.</li>
-                                <li><strong>Mustard and vinegar</strong> are 0 pts and make the sub taste great. Avoid mayo and ranch — they add 3–5 pts immediately.</li>
-                                <li>Skipping cheese saves you ~2 pts. If you need the cheese fix, one slice of <strong>provolone</strong> is only ~1 pt.</li>
-                                <li>A 6" is genuinely filling with enough veggies. Only go 12" if you're very hungry — it doubles the points.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tim Horton's -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">☕</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Tim Horton's</h3>
-                            <p class="text-red-100 text-sm">Best for breakfast stops and coffee runs — the chili is a hidden gem at any hour</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Orders</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Chili (Regular)</strong></span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><strong>BELT on English Muffin</strong> (Bacon Egg Lettuce Tomato)</span> <span class="font-bold text-orange-600">~7–8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><strong>Oatmeal with Berries</strong> (breakfast)</span> <span class="font-bold text-orange-600">~5–6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Black Coffee or Tea</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Tim's <strong>Chili</strong> is their best-kept diet secret. It's thick, protein-rich, bean-heavy, and surprisingly filling for ~5–6 pts. Works as lunch or an afternoon stop.</li>
-                                <li>The <strong>BELT on an English Muffin</strong> is the breakfast sweet spot — real ingredients, lower carb base than a bagel, and feels indulgent.</li>
-                                <li><strong>Avoid the bagels</strong> as a base. A plain bagel alone is ~7 pts before any toppings.</li>
-                                <li><strong>Coffee order tip:</strong> A splash of 1% milk to cool it down is 0 pts — totally fine. Just skip the Double Double; the cream and sugar in one is ~5 pts on its own.</li>
-                                <li>The <strong>Turkey Bacon Club wrap</strong> is ~10–12 pts — doable but not efficient. Save it for when you're truly hungry.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            
-                <!-- Firehouse Subs -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥪</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Firehouse Subs</h3>
-                            <p class="text-red-100 text-sm">Hearty, hot, and satisfying — stick to small sizes with lean meats</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10–12 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Small Hook & Ladder® Sub</strong> (Fully Involved but NO MAYO)</span> <span class="font-bold text-orange-600">~10 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> Small Turkey Bacon Ranch (Lite Ranch)</span> <span class="font-bold text-orange-600">~12 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Side Salad (with light Italian/balsamic)</span> <span class="font-bold text-green-600">1-2 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Coke / Pickle Spear</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>The <strong>Small</strong> sub size is all you need. Mediums quickly jump to 20+ points and Larges are massive calorie bombs.</li>
-                                <li><strong>"Fully Involved"</strong> comes with heavy mayo — ask for it <strong>"No Mayo, Mustard only"</strong> to immediately knock off 3-4 points.</li>
-                                <li><strong>Lean Meats Win:</strong> Stick to smoked turkey breast and chicken. Pastrami and meatball subs run extremely high in fat and points.</li>
-                                <li>Skip the chips and cookies. Pair the small sub with a side salad or use your own zero-point apple/snack bag. The complimentary pickle spear is 0 points!</li>
-                            </ul>
-                        </div>
-                    </div>
-                
-<!-- KFC -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍗</span>
-                        <div>
-                            <h3 class="text-xl font-bold">KFC</h3>
-                            <p class="text-red-100 text-sm">Fried chicken can be tough on points, but you can navigate it</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>1 pc Original Recipe Chicken Breast</strong> (remove skin)</span> <span class="font-bold text-orange-600">~3-5 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 2 Original Recipe Tenders</span> <span class="font-bold text-orange-600">~4 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Individual Mashed Potatoes (No Gravy)</span> <span class="font-bold text-orange-600">~4 pts</span></li>
-                                <li class="flex justify-between"><span>Diet Pepsi</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>The <strong>skin and breading</strong> hold the vast majority of the fat and points. Peeling the skin off a breast gives you a huge portion of protein for surprisingly low points.</li>
-                                <li><strong>Avoid the fries</strong> and coleslaw (which is loaded with mayo). Mashed potatoes without gravy are the lowest point side here.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Popeye's -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-orange-500 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🐔</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Popeye's Louisiana Kitchen</h3>
-                            <p class="text-orange-50 text-sm">The trick is getting blackened or stripping the batter</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~3-8 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Blackened Chicken Tenders (3 pc)</strong></span> <span class="font-bold text-green-600">~2-3 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 3 Mild Tenders (strip thick batter)</span> <span class="font-bold text-orange-600">~6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Corn on the Cob (No butter) or Green Beans</span> <span class="font-bold text-green-600">0-2 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li><strong>Blackened Tenders</strong> are Popeye's best-kept diet secret! They use a spicy seasoning instead of heavy breading. If your location has them, always get them.</li>
-                                <li>Their Cajun fries are delicious but completely ruin point budgets (~10+ pts for a small).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Shawarma -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-yellow-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🌯</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Typical Ottawa Shawarma Place</h3>
-                            <p class="text-yellow-50 text-sm">Shawarma Palace, Mangos, 3 Brothers — we live in the Shawarma capital!</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~6-8 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Chicken Shawarma Salad Bowl</strong></span> <span class="font-bold text-orange-600">~3-5 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Veggies (Lettuce, tomato, onion, turnips, pickles, hot peppers)</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Garlic Sauce (Toum) (1 tbsp, on side)</span> <span class="font-bold text-orange-600">~3 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>The <strong>garlic sauce (toum)</strong> is essentially whipped oil and garlic. It's high in points, so ask for it <strong>on the side</strong> and dip your fork into it rather than having it smothered.</li>
-                                <li><strong>Skip the rice and potatoes.</strong> They are cooked in heavy oil/butter and will cost you 10-15+ points. A salad bowl with chicken provides heavy volume for very few points.</li>
-                                <li>Double up on pickled turnips and pickles — they add great acidity and crunch for 0 points!</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mucho Burrito -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-emerald-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥑</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Mucho Burrito</h3>
-                            <p class="text-emerald-50 text-sm">A burrito bowl provides insane volume if you avoid the cheese/sour cream</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~3-5 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Naked Burrito Bowl</strong> (No Rice, No Shell)</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Grilled Chicken or Veggie Crumble</span> <span class="font-bold text-green-600">~2-3 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Black beans, Fajita Veggies, Corn</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Pico de Gallo, Salsas, Jalapeños</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between"><span>Guacamole (Optional scoop)</span> <span class="font-bold text-orange-600">~2-3 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>By skipping the tortilla wrap, rice, cheese, and sour cream, you turn a 20-point meal into a massive 3-5 point salad that leaves you completely stuffed.</li>
-                                <li>Beans and corn are 0 points — load up on them!</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Boston Pizza -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍕</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Boston Pizza</h3>
-                            <p class="text-red-100 text-sm">Tricky due to large portions, but very doable</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-12 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Grilled Chicken Breast</strong> with steamed veggies</span> <span class="font-bold text-orange-600">~5-6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> BP's House Salad (light vinaigrette) & side Chicken Breast</span> <span class="font-bold text-orange-600">~6 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> Share a Small Thin Crust Pizza (3 slices)</span> <span class="font-bold text-orange-600">~12 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Pasta dishes at BP are notoriously high in points (often 30+). Stick to the grill or seafood mains.</li>
-                                <li>If you really want pizza, get a <strong>thin crust</strong> and load it with veggies and chicken, splitting it with someone else.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Burger King -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-amber-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍔</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Burger King</h3>
-                            <p class="text-amber-100 text-sm">Flame-grilled flavor on a budget</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Whopper Jr.</strong> (No Mayo)</span> <span class="font-bold text-orange-600">~8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> Classic Hamburger</span> <span class="font-bold text-orange-600">~8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> 8-pc Chicken Nuggets (no sauce)</span> <span class="font-bold text-orange-600">~9 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>A full-size Whopper is over 20 points! The <strong>Whopper Jr.</strong> without mayo still gives you the flame-broiled taste with tomato and onion for a fraction of the cost.</li>
-                                <li>Like McD's, skip the fries completely. Their onion rings are also heavily battered and surprisingly high in points.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chipstand / Fry Truck -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-yellow-500 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍟</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Typical Chipstand / Fry Truck</h3>
-                            <p class="text-yellow-50 text-sm">A summer classic in the Ottawa Valley</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10-12 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Standard Hot Dog or Pogos</strong></span> <span class="font-bold text-orange-600">~10-12 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> Grilled Chicken Burger (mustard, relish)</span> <span class="font-bold text-orange-600">~6-8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>Craving poutine?</em> Split a small fry/poutine 3 ways</span> <span class="font-bold text-red-600">~10+ pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Chipstand fries are glorious, but a small fry or poutine can easily cost 25-35+ points. <strong>Rule of thumb:</strong> grab a hot dog and steal a small handful of fries from whoever you're with.</li>
-                                <li>Stick to mustard, ketchup, and relish — they are all virtually 0 points.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rio Restaurant -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-blue-600 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍽️</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Rio Restaurant (Eganville, ON)</h3>
-                            <p class="text-blue-100 text-sm">Classic Valley home-cooking diner</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-12 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Classic Turkey Club Sandwich</strong> (No Mayo, No Bacon) or Brown bread</span> <span class="font-bold text-orange-600">~8-12 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><strong>Side Garden Salad</strong> (skip the fries)</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>or</em> Grilled Chicken Dinner (with steamed veggies)</span> <span class="font-bold text-orange-600">~4-6 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Diners excel at massive clubs and hot sandwiches. A Turkey Club is great if you order without mayo, substitute the bacon for extra turkey, and ask for a side salad instead of fries!</li>
-                                <li>Alternatively, a standard egg breakfast (scrambled) with brown toast and tomato slices instead of home fries is very low in points.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wilno Tavern -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-indigo-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥟</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Wilno Tavern (Wilno, ON)</h3>
-                            <p class="text-indigo-100 text-sm">World-class Polish comfort food in the Valley!</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Cabbage Rolls (Golabki)</strong> (Meat/Rice stuffed)</span> <span class="font-bold text-orange-600">~6-8 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Pickled Beets & Salad</span> <span class="font-bold text-green-600">0-1 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>if craving Pierogies:</em> Boiled, not fried (limit 3)</span> <span class="font-bold text-orange-600">~2 pts/ea</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li><strong>Cabbage rolls</strong> are incredibly satisfying and usually quite low in points since they're mostly lean meat, rice, and tomato sauce.</li>
-                                <li>Avoid the deep-fried pierogies or heavy cream sauces (or ask for sour cream on the side). Stick to boiled pierogies for a smart compromise.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Frank's Subs -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-gray-800 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥪</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Frank's Sandwich Shop (Greenbank Rd)</h3>
-                            <p class="text-gray-200 text-sm">Incredible massive deli sandwiches</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10-12 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Roast Beef or Turkey Sub</strong></span> <span class="font-bold text-orange-600">~10-12 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Loaded with lettuce, tomatoes, hot peppers</span> <span class="font-bold text-green-600">0 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Mustard only (NO mayo/cheese)</span> <span class="font-bold text-green-600">0 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li>Frank's is famous for their butter tarts and treats — stick strictly to the sandwiches to stay on plan. If you DO get a butter tart, remember it's a ~15+ point payload. Plan accordingly.</li>
-                                <li>The buns are large and fresh, so you don't need mayo or cheese to make it taste good. Pile on the spicy toppings instead to keep the bun the only real points driver!</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Canadian-Chinese -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-red-800 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥡</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Typical Canadian-Chinese Food</h3>
-                            <p class="text-red-200 text-sm">Golden Palace, local spots, generic takeout</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Beef or Chicken & Broccoli</strong> (sauce drained/light)</span> <span class="font-bold text-orange-600">~5-7 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Steamed Rice (1/2 cup portion)</span> <span class="font-bold text-orange-600">~3 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Clear Wonton Soup or Egg Drop Soup</span> <span class="font-bold text-green-600">~2-3 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li><strong>Avoid battered and deep fried!</strong> General Tso, Sweet & Sour Chicken Balls, and Lemon Chicken run upwards of 20-30 points.</li>
-                                <li>Stir fries (like chop suey or mixed vegetables with clean meat) are the hack. Be mindful of thick, glazed sauces and ask them to go "light on sauce" or serve with steamed rice instead of fried rice/noodles.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sushi Kan -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-cyan-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🍣</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Sushi Kan (Baseline Road)</h3>
-                            <p class="text-cyan-100 text-sm">AYCE sushi can be completely guilt-free if you order right</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~2-8 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Sashimi</strong> (Shrimp/Ebi, Surf Clam, Scallop)</span> <span class="font-bold text-green-600">0 pts!</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Edamame / Wakame (Seaweed) Salad</span> <span class="font-bold text-green-600">0-1 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Miso Soup</span> <span class="font-bold text-green-600">~1-2 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><em>If craving rolls:</em> 1 Spicy Scallop/Shrimp Roll (6 pc)</span> <span class="font-bold text-orange-600">~6-8 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li><strong>Sashimi is completely free.</strong> You can eat plates of shrimp and surf clam for 0 points. It's the highest quality protein you can find.</li>
-                                <li><strong>Rice is the killer.</strong> Sushi rolls are packed with sugary, starchy sushi rice. Limit yourself to one set of Maki rolls, and rely on sashimi, salads, and soups for volume! Avoid anything "Tempura" (deep fried).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thai Express -->
-                <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-                    <div class="bg-lime-700 text-white px-6 py-4 flex items-center gap-3">
-                        <span class="text-2xl">🥡</span>
-                        <div>
-                            <h3 class="text-xl font-bold">Thai Express</h3>
-                            <p class="text-lime-100 text-sm">Noodles will hurt, but soups and stir-fries save the day</p>
-                        </div>
-                    </div>
-                    <div class="p-6 grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~6-10 pts total)</h4>
-                            <ul class="space-y-2 text-sm">
-                                <li class="flex justify-between border-b pb-1"><span><strong>Tom Yum Soup</strong> (With Chicken/Shrimp)</span> <span class="font-bold text-green-600">~3-5 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span><strong>Pad Pak Ruam</strong> (Stir-fried vegetables & chicken, no rice)</span> <span class="font-bold text-orange-600">~5-7 pts</span></li>
-                                <li class="flex justify-between border-b pb-1"><span>Mango Salad or Papaya Salad</span> <span class="font-bold text-orange-600">~5 pts</span></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                                <li><strong>Avoid the Pad Thai!</strong> It's insanely high in points (sometimes 25+ pts) due to the rice noodles sauteed heavily in oil and sugary tamarind/peanut sauces.</li>
-                                <li>Tom Yum soup is incredibly flavourful, spicy, and filling for very few points. A bowl of soup + a side of veggies/chicken is the ultimate cheat code here.</li>
-                            </ul>
-        </div>
-        </div>
-
-        <!-- SYSTEM RULES TAB -->
-        <div id="tracker" class="tab-content">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">System Rules</h2>
-
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 2 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Core Rules -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-xl font-bold text-blue-600 mb-4">? Core System Rules</h3>
-                    <ul class="list-disc pl-5 space-y-3 text-gray-700">
-                        <li><strong>The Water Baseline:</strong> 3-5 jugs minimum a day. Flushes sodium, kills headaches, drops water weight.</li>
-                        <li><strong>Decision Fatigue:</strong> Rely entirely on the pre-packed containers made on Sunday.</li>
-                        <li><strong>The Snack Anchors:</strong> Apples, Hard Boiled Eggs, and 2oz portioned cups of nuts/popcorn.</li>
-                        <li><strong>The Potatoes Rule:</strong> Real potatoes (yellow, russet, sweet) are fully allowed. Keep it simple but tasty.</li>
-                        <li><strong>The 8:15 PM Sleep Payload:</strong> Melatonin timed-release, 2x Mag Bisglycinate, 1x Omega 3-6-9. CPAP dock. No late night oatmeal.</li>
-                        <li><strong>Drinks Rule:</strong> Coke Zero before 2PM. Bubly whenever. Calorie-Free Cran to break up the water boredom.</li>
-                        <li><strong>The "Trailer/Weekend" Rule:</strong> Stick to the pre-packed main containers, but budget for a "fun not piggy" treat (e.g., 1 butter tart, small bowl Pringles).</li>
-                    </ul>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Rotisserie Chicken (shredded, skinless)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hash + hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small tub Fat-Free Greek Yogurt</span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Bag of Fresh Yellow Potatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Onion &amp; 1 Bell Pepper</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Red Onion, Celery, Cucumbers</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Limes, Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Black Beans</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small jar Sliced Black Olives</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Balsamic Vinegar</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Italian Seasoning, Cinnamon, Hot Sauce</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </main>
+    <!-- ═══════════════════════════════════════════ WEEK 3 -->
+    <div id="week3" class="tab-content">
+        <div class="bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🥩 Week 3: The Beef &amp; Burger Week</h2>
+            <p class="text-orange-50">All bold beef, all week. Lunches are burger bowls with a secret cottage cheese sauce that tastes completely indulgent, paired with a marinated mushroom salad for crunch. Suppers are a thick beef, potato, and cabbage stew that's essentially a zero-point pot roast in a bowl. You will not feel like you're dieting this week.</p>
+        </div>
 
-    <script>
-        function openTab(tabId, elOrId) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                btn.classList.replace('text-white', 'text-blue-200');
-                btn.classList.remove('border-white');
-            });
-            
-            document.getElementById(tabId).classList.add('active');
-            
-            let btn = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
-            if (btn) {
-                btn.classList.add('active');
-                btn.classList.replace('text-blue-200', 'text-white');
-                btn.classList.add('border-white');
-            }
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 3 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w3-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0-1 pt):</strong> <a href="#w3-burger" class="text-blue-600 underline font-semibold hover:text-blue-800">Pre-Packed Burger Bowls</a> &amp; <a href="#w3-mushroom" class="text-blue-600 underline font-semibold hover:text-blue-800">Mushroom Salad</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w3-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w3-stew" class="text-blue-600 underline font-semibold hover:text-blue-800">Beef, Potato &amp; Cabbage Stew</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 3 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w3-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w3-burger" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍔 Pre-Packed Burger Bowls</h4>
+                <p class="text-sm text-gray-500 mb-3">The secret sauce makes these taste completely indulgent. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Pack the lettuce, pickles, and sauce separately if you plan to microwave the beef portion at lunchtime.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>Lean ground beef (enough for 4 bowls)</li><li>1 head iceberg lettuce (shredded)</li><li>1 jar pickles (diced)</li><li>Garlic powder, onion powder, salt, pepper</li></ul>
+                        <p class="font-semibold text-orange-600 mt-3 mb-1">The "Secret Sauce" (1 pt per batch)</p>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup fat-free cottage cheese</li><li>4 tbsp low-sugar ketchup</li><li>Splash of pickle juice</li><li>Pinch of garlic powder</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>The Sauce:</strong> Blend cottage cheese with ketchup, pickle juice, and garlic until silky smooth.</li>
+                            <li><strong>The Beef:</strong> Brown ground beef with seasonings. Drain any excess fat.</li>
+                            <li><strong>The Base:</strong> Pack shredded iceberg into 4 containers.</li>
+                            <li><strong>Build:</strong> Divide beef on top, add pickles, include Mushroom Salad (below).</li>
+                            <li><strong>Finish:</strong> Drizzle secret sauce over top (or pack separately).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w3-mushroom" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍄 Marinated Button Mushroom Salad</h4>
+                <p class="text-sm text-gray-500 mb-3">Sharp, acidic, crunchy — the perfect side to the burger bowl. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunch sides</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Marinate the mushrooms and sturdy veggies in the dressing and store together. Keep delicate greens separate — toss them in right at lunchtime.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">The Dressing</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>3 tbsp Apple Cider Vinegar</li><li>1 tsp Dijon Mustard</li><li>Juice of ½ Lemon</li><li>½ tsp Garlic powder, salt &amp; pepper</li></ul>
+                        <h5 class="font-semibold text-blue-600 mt-3 mb-2">The Salad</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>8-10 oz button mushrooms (sliced thin)</li><li>2-3 stalks celery (diced)</li><li>¼ cup red onion (thin slivers)</li><li>4 cups arugula or baby spinach (kept separate)</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li>Whisk dressing ingredients together until combined.</li>
+                            <li>Toss mushrooms, celery, and red onion into the dressing. Let sit 15 mins.</li>
+                            <li>Divide marinated mix into 4 containers.</li>
+                            <li>Keep arugula/spinach separate — toss in at lunchtime!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w3-stew" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥩 Heavy-Hitting Beef, Potato &amp; Cabbage Stew</h4>
+                <p class="text-sm text-gray-500 mb-3">A zero-point pot roast in a bowl. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 suppers</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Dropping cabbage straight into the stew is an elite move. It melts into the savory beef broth, soaking up all the flavor and boosting volume for a flat 0 points.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>Lean beef stew meat cubes (enough for 4 bowls)</li><li>½ large Spanish onion (chopped)</li><li>1 bag yellow potatoes (cubed)</li><li>Celery and carrots (sliced)</li><li>½ head cabbage (thick ribbons)</li><li>1 large carton low-sodium beef broth</li><li>2 tbsp Worcestershire sauce</li><li>Salt, pepper, garlic powder, Italian seasoning</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>Sear:</strong> Brown beef in sprayed pot; season generously with salt, pepper, garlic powder.</li>
+                            <li><strong>Aromatics:</strong> Add onion, celery, carrots; cook 3-4 mins to soften.</li>
+                            <li><strong>Broth:</strong> Add beef broth and Worcestershire. Bring to boil, then simmer covered 45 mins.</li>
+                            <li><strong>Volume:</strong> Stir in cubed potatoes and cabbage ribbons.</li>
+                            <li><strong>Finish:</strong> Simmer covered 30 more mins until potatoes are fork-tender. Divide into 4 containers.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w3-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 3 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Lean ground beef (4 bowl portions)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Lean beef stew meat cubes (4 portions)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small tub Fat-Free Greek Yogurt</span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Head Iceberg Lettuce</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Bag of Yellow Potatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>½ Head Cabbage</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Spanish Onion, Celery, Carrots</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>8-10 oz Button Mushrooms</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Red Onion &amp; Arugula/Baby Spinach</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Lemon, Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Jar of Pickles</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Low-Sugar Ketchup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Apple Cider Vinegar &amp; Dijon Mustard</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 carton Low-Sodium Beef Broth</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Worcestershire Sauce</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Garlic Powder, Onion Powder, Italian Seasoning, Cinnamon</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ WEEK 4 -->
+    <div id="week4" class="tab-content">
+        <div class="bg-gradient-to-r from-violet-600 to-violet-400 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🍤 Week 4: Comfort &amp; Coast</h2>
+            <p class="text-violet-50">Sheet pan shrimp with sweet potatoes for lunch — roasted, garlicky, done in 30 minutes flat. Suppers are a classic shepherd's pie made with real potato mash (blended cottage cheese instead of butter) that tastes completely indulgent and keeps you full for hours. The most comfort-food-heavy week of the rotation.</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 4 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w4-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0 pt):</strong> <a href="#w4-shrimp" class="text-blue-600 underline font-semibold hover:text-blue-800">Lemon Garlic Shrimp &amp; Sweet Potato Hash</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w4-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w4-shepherds" class="text-blue-600 underline font-semibold hover:text-blue-800">Zero-Point Shepherd's Pie</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 4 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w4-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w4-shrimp" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍋 Sheet Pan Lemon Garlic Shrimp &amp; Sweet Potato Hash</h4>
+                <p class="text-sm text-gray-500 mb-3">Roasted, garlicky, done in 30 mins. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Roast the sweet potatoes first since they take longer, then toss the shrimp on at the very end so they stay juicy and tender — not rubbery.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>1.5-2 lbs large shrimp (peeled and deveined)</li><li>2-3 medium sweet potatoes (cubed)</li><li>2 bell peppers (any color), chopped</li><li>1 small red onion, chopped</li><li>3 cloves garlic, minced</li><li>1 lemon (zested and juiced)</li><li>1 tsp smoked paprika, 1 tsp dried oregano</li><li>Salt, pepper, zero-point cooking spray</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>Roast the Hash:</strong> Preheat oven to 400°F. Spread sweet potatoes, peppers, onions on a sheet pan. Spray lightly; season with salt, pepper, paprika. Roast 20-25 mins.</li>
+                            <li><strong>Prep Shrimp:</strong> Toss shrimp with garlic, lemon zest, lemon juice, oregano, salt, and pepper.</li>
+                            <li><strong>Quick Finish:</strong> Scatter shrimp over pan. Roast 5-7 more mins until pink and opaque.</li>
+                            <li><strong>Portion:</strong> Cool, divide into 4 lunch containers.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w4-shepherds" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥔 Zero-Point Shepherd's Pie</h4>
+                <p class="text-sm text-gray-500 mb-3">Real potato mash, real comfort food, zero points. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 suppers</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> We're making REAL potato mash — not cauliflower. Blending fat-free cottage cheese instead of butter keeps it at zero points while maintaining a rich, silky texture that is genuinely great.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>1 lb 99% fat-free ground turkey</li><li>1 medium onion, diced</li><li>1 bag (16oz) frozen mixed vegetables</li><li>1 cup low-sodium beef broth</li><li>2 tbsp Worcestershire sauce</li><li>1 tbsp tomato paste</li><li>1.5-2 lbs yellow or Russet potatoes (peeled, cubed)</li><li>½ cup fat-free cottage cheese (blended smooth)</li><li>Salt, pepper, garlic powder, dried thyme</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>The Mash:</strong> Boil potatoes until fork-tender. Drain, then mash with blended cottage cheese, ½ tsp salt, ½ tsp pepper, and garlic powder until silky.</li>
+                            <li><strong>The Base:</strong> Brown turkey and onion in a sprayed skillet. Add remaining seasonings, tomato paste, Worcestershire, broth, and frozen veggies. Simmer 5-8 mins.</li>
+                            <li><strong>Assembly:</strong> Pour filling into a 9x9 baking dish (or 4 oven-safe containers). Spread potato mash evenly over top.</li>
+                            <li><strong>Bake:</strong> 375°F for 20-25 mins until edges bubble and top starts to golden. Cool completely before sealing lids.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w4-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 4 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1.5-2 lbs Large Shrimp (peeled/deveined)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 lb 99% fat-free ground turkey</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small tub Fat-Free Greek Yogurt</span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2-3 Medium Sweet Potatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Bell Peppers &amp; 1 Red Onion</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>3 cloves Garlic</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Lemon</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1.5-2 lbs Yellow or Russet Potatoes (for mash)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Medium Onion (for shepherd's pie)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 bag (16oz) Frozen Mixed Vegetables</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Low-Sodium Beef Broth</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Worcestershire Sauce &amp; Tomato Paste</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Smoked Paprika, Oregano, Garlic Powder, Thyme, Cinnamon</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ WEEK 5 -->
+    <div id="week5" class="tab-content">
+        <div class="bg-gradient-to-r from-red-600 to-red-400 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🌮 Week 5: Fiesta Week</h2>
+            <p class="text-red-50">Tex-Mex all week — spinach &amp; tomato egg scrambles bulk-cooked for lunches, and a yogurt-crusted Melt chicken served over a bright fiesta bean salad for supper. The most colorful and most protein-dense week of the rotation. Fair warning: your coworkers will ask about the chicken.</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 5 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w5-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0 pt):</strong> <a href="#w5-scramble" class="text-blue-600 underline font-semibold hover:text-blue-800">Spinach &amp; Tomato Egg Scramble</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w5-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0-1 pt):</strong> <a href="#w5-fiesta" class="text-blue-600 underline font-semibold hover:text-blue-800">Chicken &amp; Fiesta Bean Salad</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 5 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w5-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w5-scramble" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥚 Spinach &amp; Tomato Egg Scramble</h4>
+                <p class="text-sm text-gray-500 mb-3">Bulk-cooked, zero-point, reheats perfectly. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> You MUST sweat the moisture out of the tomatoes first — skipping this step turns your prepped scramble into a watery, spongy mess by Day 2. Non-negotiable.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>12 whole eggs (whisked well)</li><li>2 Roma tomatoes (seeded and diced)</li><li>2 large handfuls fresh baby spinach</li><li>½ tsp garlic powder</li><li>Coarse salt and black pepper to taste</li><li>Zero-point non-stick cooking spray</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>Sweat Tomatoes:</strong> Spray skillet, medium-high heat. Sauté tomatoes with a pinch of salt for 3-4 mins until all liquid evaporates.</li>
+                            <li><strong>Wilt Spinach:</strong> Reduce heat, add spinach, toss 60 secs until wilted. Remove to a plate.</li>
+                            <li><strong>Low &amp; Slow Eggs:</strong> Wipe pan, respray, medium-low heat. Pour eggs, let set slightly, then gently push into soft curds with a spatula.</li>
+                            <li><strong>Fold &amp; Finish:</strong> While eggs are still slightly glossy, fold in veggies and seasonings. Remove from heat immediately.</li>
+                            <li><strong>Storage:</strong> Cool completely before sealing containers — prevents rubbery eggs.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w5-fiesta" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🧀 "Melt" Chicken &amp; Fiesta Bean Salad</h4>
+                <p class="text-sm text-gray-500 mb-3">Yogurt-crusted chicken over a bright Tex-Mex bean salad. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 suppers</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> Using fat-free Greek yogurt as the coating keeps the chicken incredibly moist while baking. The yogurt sets into a savory golden crust — this is the recipe people ask about.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Chicken Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>4 boneless skinless chicken breasts</li><li>½ cup plain fat-free Greek yogurt</li><li>¼ cup grated parmesan</li><li>1 tsp garlic powder, ½ tsp onion powder</li><li>½ tsp seasoned salt &amp; black pepper</li></ul>
+                        <h5 class="font-semibold text-blue-600 mt-3 mb-2">Fiesta Bean Salad</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1"><li>1 can (15oz) black beans (rinsed)</li><li>1 can (15oz) sweet corn (drained)</li><li>1 cup cherry tomatoes (halved)</li><li>¼ cup red onion (finely diced)</li><li>¼ cup fresh cilantro (chopped)</li><li>Juice of 1 lime, ½ tsp cumin</li></ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>The Salad:</strong> Combine all salad ingredients, toss with lime juice and cumin. Refrigerate to let flavors mingle.</li>
+                            <li><strong>Prep Chicken:</strong> Preheat oven to 375°F. Spray a baking dish. Place chicken breasts.</li>
+                            <li><strong>The Coating:</strong> Mix yogurt, parmesan, and all spices. Smear evenly over top of each breast.</li>
+                            <li><strong>Bake:</strong> Bake uncovered 30-35 mins until cooked through (165°F) and topping is golden.</li>
+                            <li><strong>Portion:</strong> Divide salad into 4 containers, top each with a chicken breast.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w5-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 5 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>4 Boneless Skinless Chicken Breasts</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Dozen Eggs (12 for scramble + hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Greek Yogurt</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese (for tropical bowl)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small block/bag Grated Parmesan</span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Roma Tomatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Large Handfuls Fresh Baby Spinach</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 cup Cherry Tomatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Red Onion &amp; Fresh Cilantro</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Limes, Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Black Beans</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Sweet Corn</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Garlic Powder, Onion Powder, Cumin, Cinnamon, Seasoned Salt</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ SYSTEM RULES -->
+    <div id="rules" class="tab-content">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">System Rules</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold text-blue-600 mb-4">⚙️ Core System Rules</h3>
+                <ul class="list-disc pl-5 space-y-3 text-gray-700">
+                    <li><strong>The Water Baseline:</strong> 3-5 jugs minimum a day. Flushes sodium, kills headaches, drops water weight.</li>
+                    <li><strong>Decision Fatigue:</strong> Rely entirely on the pre-packed containers made on Sunday.</li>
+                    <li><strong>The Snack Anchors:</strong> Apples, Hard Boiled Eggs, and 2oz portioned cups of nuts/popcorn.</li>
+                    <li><strong>The Potatoes Rule:</strong> Real potatoes (yellow, russet, sweet) are fully allowed. Keep it simple but tasty.</li>
+                    <li><strong>The 8:15 PM Sleep Payload:</strong> Melatonin timed-release, 2x Mag Bisglycinate, 1x Omega 3-6-9. CPAP dock. No late night oatmeal.</li>
+                    <li><strong>Drinks Rule:</strong> Coke Zero before 2PM. Bubly whenever. Calorie-Free Cran to break up the water boredom.</li>
+                    <li><strong>The "Trailer/Weekend" Rule:</strong> Stick to the pre-packed main containers, but budget for a "fun not piggy" treat (e.g., 1 butter tart, small bowl Pringles).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ WEEKEND EATS -->
+    <div id="weekend" class="tab-content">
+        <h2 class="text-2xl font-bold mb-2 text-gray-800">Weekend Restaurant Guide</h2>
+        <p class="text-gray-500 mb-8">Eating out on weekends? Stay on track without ordering a salad and water. These are the <strong>lowest-point orders that still feel like a treat</strong> at each chain. <em>(Note: Menu items and points are based on Canadian menus for the Ottawa, ON area).</em> Diet pop is always 0 pts — order it without guilt.</p>
+
+        <div class="space-y-6">
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍔</span>
+                    <div><h3 class="text-xl font-bold">McDonald's</h3><p class="text-red-100 text-sm">The go-to: McChicken or McNuggets — classic, satisfying, cheaty enough</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~7–10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>McChicken Sandwich</strong></span><span class="font-bold text-orange-600">~7 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> 6-Piece Chicken McNuggets</span><span class="font-bold text-orange-600">~7 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Chicken Wrap Happy Meal</span><span class="font-bold text-orange-600">~8-10 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Apple Slices</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>The <strong>McChicken</strong> is the sweet spot — real chicken, real bun, actual flavour, only 7 pts.</li>
+                            <li><strong>Adult Apple Slices</strong> can be ordered a la carte with your McChicken if you skip the fries.</li>
+                            <li>McNuggets with <strong>Sweet &amp; Sour or BBQ sauce</strong> add ~1 pt per packet. Still worth it.</li>
+                            <li>A plain <strong>Hamburger</strong> is also ~7 pts if you want beef instead. Avoid the McDouble and Quarter Pounder.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-800 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍔</span>
+                    <div><h3 class="text-xl font-bold">Wendy's</h3><p class="text-red-200 text-sm">The power move: Grilled Chicken Sandwich + Small Chili instead of fries</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~12–13 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Grilled Chicken Sandwich</strong></span><span class="font-bold text-orange-600">~8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><strong>Small Chili</strong> <em>(swap for fries)</em></span><span class="font-bold text-orange-600">~4 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                        <div class="mt-4 bg-amber-50 border-l-4 border-amber-400 p-3 rounded text-sm">
+                            <strong>Lighter Option (~9 pts):</strong> Jr. Cheeseburger + Small Chili. The Jr. is surprisingly filling at only ~9 pts solo.
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Wendy's <strong>Small Chili</strong> is arguably the best fast food diet swap on the planet — bean-heavy, only ~4 pts. Get it instead of fries every time.</li>
+                            <li>The <strong>Grilled Chicken Sandwich</strong> uses real breast meat — not processed.</li>
+                            <li>A <strong>plain Baked Potato</strong> is ~5 pts and shockingly filling if you want starch.</li>
+                            <li>Dave's Single is ~15 pts. Save it for a true cheat day.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-green-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥖</span>
+                    <div><h3 class="text-xl font-bold">Subway</h3><p class="text-green-100 text-sm">The most customizable chain — you can engineer a genuinely filling meal for 5–7 pts</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~5–7 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>6" Turkey Breast</strong> on 9-Grain Wheat</span><span class="font-bold text-orange-600">~5–6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> 6" Rotisserie-Style Chicken on 9-Grain Wheat</span><span class="font-bold text-orange-600">~6–7 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>All the veggies (lettuce, tomato, onion, cucumber, peppers, spinach)</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Mustard or Vinegar as sauce</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Coke / Diet Pepsi</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Subway is the <strong>most diet-flexible fast food</strong> because you control every component. Use that power.</li>
+                            <li><strong>Pile on the free veggies.</strong> Double the lettuce and spinach — it bulks up the sub massively for 0 pts.</li>
+                            <li><strong>Mustard and vinegar</strong> are 0 pts. Avoid mayo and ranch — they add 3–5 pts immediately.</li>
+                            <li>Skipping cheese saves ~2 pts. One slice of <strong>provolone</strong> is only ~1 pt if you need the fix.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">☕</span>
+                    <div><h3 class="text-xl font-bold">Tim Horton's</h3><p class="text-red-100 text-sm">Best for breakfast stops and coffee runs — the chili is a hidden gem at any hour</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Orders</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Chili (Regular)</strong></span><span class="font-bold text-orange-600">~5–6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><strong>BELT on English Muffin</strong></span><span class="font-bold text-orange-600">~7–8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><strong>Oatmeal with Berries</strong></span><span class="font-bold text-orange-600">~5–6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Black Coffee or Tea</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Pepsi</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Tim's <strong>Chili</strong> is their best-kept diet secret. Thick, protein-rich, bean-heavy — ~5–6 pts. Works as lunch or an afternoon stop.</li>
+                            <li>The <strong>BELT on an English Muffin</strong> is the breakfast sweet spot — real ingredients, lower carb than a bagel.</li>
+                            <li><strong>Avoid the bagels</strong> as a base. A plain bagel alone is ~7 pts before toppings.</li>
+                            <li><strong>Coffee tip:</strong> A splash of 1% milk is 0 pts. Skip the Double Double — that's ~5 pts of cream and sugar alone.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥪</span>
+                    <div><h3 class="text-xl font-bold">Firehouse Subs</h3><p class="text-red-100 text-sm">Hearty, hot, and satisfying — stick to small sizes with lean meats</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10–12 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Small Hook &amp; Ladder® Sub</strong> (Fully Involved, NO MAYO)</span><span class="font-bold text-orange-600">~10 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Small Turkey Bacon Ranch (Lite Ranch)</span><span class="font-bold text-orange-600">~12 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Side Salad (light Italian/balsamic)</span><span class="font-bold text-green-600">1-2 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Coke / Pickle Spear</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>The <strong>Small</strong> sub is all you need. Mediums jump to 20+ points.</li>
+                            <li><strong>"Fully Involved"</strong> comes with heavy mayo — ask for <strong>"No Mayo, Mustard only"</strong> to knock off 3-4 points immediately.</li>
+                            <li><strong>Lean Meats Win:</strong> Stick to smoked turkey breast and chicken. Pastrami and meatball subs run extremely high.</li>
+                            <li>Skip the chips and cookies. The complimentary pickle spear is 0 points!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍗</span>
+                    <div><h3 class="text-xl font-bold">KFC</h3><p class="text-red-100 text-sm">Fried chicken can be tough on points, but you can navigate it</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>1 pc Original Recipe Chicken Breast</strong> (remove skin)</span><span class="font-bold text-orange-600">~3-5 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> 2 Original Recipe Tenders</span><span class="font-bold text-orange-600">~4 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Individual Mashed Potatoes (No Gravy)</span><span class="font-bold text-orange-600">~4 pts</span></li>
+                            <li class="flex justify-between"><span>Diet Pepsi</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>The <strong>skin and breading</strong> hold the vast majority of fat and points. Peeling the skin off a breast gives you a huge portion of protein for surprisingly low points.</li>
+                            <li><strong>Avoid fries</strong> and coleslaw (which is loaded with mayo). Mashed potatoes without gravy are the lowest-point side.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-orange-500 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🐔</span>
+                    <div><h3 class="text-xl font-bold">Popeye's Louisiana Kitchen</h3><p class="text-orange-50 text-sm">The trick is getting blackened or stripping the batter</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~3-8 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Blackened Chicken Tenders (3 pc)</strong></span><span class="font-bold text-green-600">~2-3 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> 3 Mild Tenders (strip thick batter)</span><span class="font-bold text-orange-600">~6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Corn on the Cob (No butter) or Green Beans</span><span class="font-bold text-green-600">0-2 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li><strong>Blackened Tenders</strong> are Popeye's best-kept diet secret! Spicy seasoning instead of heavy breading. If your location has them, always get them.</li>
+                            <li>Their Cajun fries are delicious but completely ruin point budgets (~10+ pts for a small).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-yellow-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🌯</span>
+                    <div><h3 class="text-xl font-bold">Typical Ottawa Shawarma Place</h3><p class="text-yellow-50 text-sm">Shawarma Palace, Mangos, 3 Brothers — we live in the Shawarma capital!</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~6-8 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Chicken Shawarma Salad Bowl</strong></span><span class="font-bold text-orange-600">~3-5 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Veggies (Lettuce, tomato, onion, turnips, pickles, hot peppers)</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Garlic Sauce (Toum) (1 tbsp, on side)</span><span class="font-bold text-orange-600">~3 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>The <strong>garlic sauce (toum)</strong> is essentially whipped oil. Ask for it <strong>on the side</strong> and dip your fork into it rather than having it smothered.</li>
+                            <li><strong>Skip the rice and potatoes.</strong> They're cooked in heavy oil/butter — 10-15+ pts. A salad bowl with chicken is massive volume for very few points.</li>
+                            <li>Double up on pickled turnips and pickles — great acidity and crunch for 0 points!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-emerald-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥑</span>
+                    <div><h3 class="text-xl font-bold">Mucho Burrito</h3><p class="text-emerald-50 text-sm">A burrito bowl provides insane volume if you avoid the cheese/sour cream</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~3-5 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Naked Burrito Bowl</strong> (No Rice, No Shell)</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Grilled Chicken or Veggie Crumble</span><span class="font-bold text-green-600">~2-3 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Black beans, Fajita Veggies, Corn</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Pico de Gallo, Salsas, Jalapeños</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between"><span>Guacamole (Optional scoop)</span><span class="font-bold text-orange-600">~2-3 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>By skipping the tortilla wrap, rice, cheese, and sour cream, you turn a 20-point meal into a massive 3-5 point salad that leaves you completely stuffed.</li>
+                            <li>Beans and corn are 0 points — load up on them!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍕</span>
+                    <div><h3 class="text-xl font-bold">Boston Pizza</h3><p class="text-red-100 text-sm">Tricky due to large portions, but very doable</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-12 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Grilled Chicken Breast</strong> with steamed veggies</span><span class="font-bold text-orange-600">~5-6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> BP's House Salad (light vinaigrette) &amp; side Chicken Breast</span><span class="font-bold text-orange-600">~6 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Share a Small Thin Crust Pizza (3 slices)</span><span class="font-bold text-orange-600">~12 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Pasta dishes at BP are notoriously high in points (often 30+). Stick to the grill or seafood mains.</li>
+                            <li>If you really want pizza, get a <strong>thin crust</strong> loaded with veggies and chicken, and split it.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-amber-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍔</span>
+                    <div><h3 class="text-xl font-bold">Burger King</h3><p class="text-amber-100 text-sm">Flame-grilled flavor on a budget</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Whopper Jr.</strong> (No Mayo)</span><span class="font-bold text-orange-600">~8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Classic Hamburger</span><span class="font-bold text-orange-600">~8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> 8-pc Chicken Nuggets (no sauce)</span><span class="font-bold text-orange-600">~9 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>A full-size Whopper is over 20 points! The <strong>Whopper Jr.</strong> without mayo still gives you the flame-broiled taste for a fraction of the points.</li>
+                            <li>Like McD's, skip the fries completely. Onion rings are also heavily battered and surprisingly high in points.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-yellow-500 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍟</span>
+                    <div><h3 class="text-xl font-bold">Typical Chipstand / Fry Truck</h3><p class="text-yellow-50 text-sm">A summer classic in the Ottawa Valley</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10-12 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Standard Hot Dog or Pogos</strong></span><span class="font-bold text-orange-600">~10-12 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Grilled Chicken Burger (mustard, relish)</span><span class="font-bold text-orange-600">~6-8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>Craving poutine?</em> Split a small fry/poutine 3 ways</span><span class="font-bold text-red-600">~10+ pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Chipstand fries are glorious, but a small fry or poutine can easily cost 25-35+ points. <strong>Rule of thumb:</strong> grab a hot dog and steal a small handful of fries from whoever you're with.</li>
+                            <li>Stick to mustard, ketchup, and relish — all virtually 0 points.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-blue-600 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍽️</span>
+                    <div><h3 class="text-xl font-bold">Rio Restaurant (Eganville, ON)</h3><p class="text-blue-100 text-sm">Classic Valley home-cooking diner</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-12 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Classic Turkey Club Sandwich</strong> (No Mayo, No Bacon) on brown bread</span><span class="font-bold text-orange-600">~8-12 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><strong>Side Garden Salad</strong> (skip the fries)</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>or</em> Grilled Chicken Dinner (with steamed veggies)</span><span class="font-bold text-orange-600">~4-6 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>A Turkey Club is great if you order without mayo, substitute the bacon for extra turkey, and ask for a side salad instead of fries.</li>
+                            <li>A standard egg breakfast (scrambled) with brown toast and tomato slices instead of home fries is very low in points.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-indigo-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥟</span>
+                    <div><h3 class="text-xl font-bold">Wilno Tavern (Wilno, ON)</h3><p class="text-indigo-100 text-sm">World-class Polish comfort food in the Valley!</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Cabbage Rolls (Golabki)</strong> (Meat/Rice stuffed)</span><span class="font-bold text-orange-600">~6-8 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Pickled Beets &amp; Salad</span><span class="font-bold text-green-600">0-1 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>if craving Pierogies:</em> Boiled, not fried (limit 3)</span><span class="font-bold text-orange-600">~2 pts/ea</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li><strong>Cabbage rolls</strong> are incredibly satisfying and low in points — mostly lean meat, rice, and tomato sauce.</li>
+                            <li>Avoid the deep-fried pierogies or heavy cream sauces. Stick to boiled pierogies for a smart compromise.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-gray-800 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥪</span>
+                    <div><h3 class="text-xl font-bold">Frank's Sandwich Shop (Greenbank Rd)</h3><p class="text-gray-200 text-sm">Incredible massive deli sandwiches</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~10-12 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Roast Beef or Turkey Sub</strong></span><span class="font-bold text-orange-600">~10-12 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Loaded with lettuce, tomatoes, hot peppers</span><span class="font-bold text-green-600">0 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Mustard only (NO mayo/cheese)</span><span class="font-bold text-green-600">0 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li>Frank's is famous for their butter tarts — stick strictly to the sandwiches to stay on plan. If you DO get a butter tart, remember it's a ~15+ point payload. Plan accordingly.</li>
+                            <li>The buns are large and fresh, so you don't need mayo or cheese. Pile on the spicy toppings instead!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-red-800 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥡</span>
+                    <div><h3 class="text-xl font-bold">Typical Canadian-Chinese Food</h3><p class="text-red-200 text-sm">Golden Palace, local spots, generic takeout</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~8-10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Beef or Chicken &amp; Broccoli</strong> (sauce drained/light)</span><span class="font-bold text-orange-600">~5-7 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Steamed Rice (½ cup portion)</span><span class="font-bold text-orange-600">~3 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Clear Wonton Soup or Egg Drop Soup</span><span class="font-bold text-green-600">~2-3 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li><strong>Avoid battered and deep fried!</strong> General Tso, Sweet &amp; Sour Chicken Balls, and Lemon Chicken run upwards of 20-30 points.</li>
+                            <li>Stir fries are the hack. Be mindful of thick, glazed sauces and ask them to go "light on sauce." Get steamed rice instead of fried rice/noodles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-cyan-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🍣</span>
+                    <div><h3 class="text-xl font-bold">Sushi Kan (Baseline Road)</h3><p class="text-cyan-100 text-sm">AYCE sushi can be completely guilt-free if you order right</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~2-8 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Sashimi</strong> (Shrimp/Ebi, Surf Clam, Scallop)</span><span class="font-bold text-green-600">0 pts!</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Edamame / Wakame (Seaweed) Salad</span><span class="font-bold text-green-600">0-1 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Miso Soup</span><span class="font-bold text-green-600">~1-2 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><em>If craving rolls:</em> 1 Spicy Scallop/Shrimp Roll (6 pc)</span><span class="font-bold text-orange-600">~6-8 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li><strong>Sashimi is completely free.</strong> You can eat plates of shrimp and surf clam for 0 points. Highest quality protein you can find.</li>
+                            <li><strong>Rice is the killer.</strong> Limit yourself to one set of Maki rolls, and rely on sashimi, salads, and soups for volume! Avoid anything "Tempura".</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
+                <div class="bg-lime-700 text-white px-6 py-4 flex items-center gap-3">
+                    <span class="text-2xl">🥡</span>
+                    <div><h3 class="text-xl font-bold">Thai Express</h3><p class="text-lime-100 text-sm">Noodles will hurt, but soups and stir-fries save the day</p></div>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">⭐ The Smart Order (~6-10 pts total)</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between border-b pb-1"><span><strong>Tom Yum Soup</strong> (With Chicken/Shrimp)</span><span class="font-bold text-green-600">~3-5 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span><strong>Pad Pak Ruam</strong> (Stir-fried vegetables &amp; chicken, no rice)</span><span class="font-bold text-orange-600">~5-7 pts</span></li>
+                            <li class="flex justify-between border-b pb-1"><span>Mango Salad or Papaya Salad</span><span class="font-bold text-orange-600">~5 pts</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">💡 Know Before You Order</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-gray-700">
+                            <li><strong>Avoid the Pad Thai!</strong> It's insanely high in points (sometimes 25+ pts) due to rice noodles sautéed heavily in oil and sugary tamarind/peanut sauces.</li>
+                            <li>Tom Yum soup is incredibly flavourful, spicy, and filling for very few points. A bowl of soup + side of veggies/chicken is the ultimate cheat code here.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<script>
+    function openTab(tabId, el) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active');
+            if (b.classList.contains('text-white')) b.classList.replace('text-white', 'text-blue-100');
+            b.classList.remove('border-white');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (el) {
+            el.classList.add('active');
+            if (el.classList.contains('text-blue-100')) el.classList.replace('text-blue-100', 'text-white');
+            el.classList.add('border-white');
         }
-
-        function gotoRecipe(recipeId) {
-            openTab('recipes', 'nav-recipes');
-            setTimeout(() => {
-                const el = document.getElementById(recipeId);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-                
-                // Optional: briefly highlight the card
-                el.classList.add('ring-4', 'ring-blue-400');
-                setTimeout(() => el.classList.remove('ring-4', 'ring-blue-400'), 1500);
-            }, 50);
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
