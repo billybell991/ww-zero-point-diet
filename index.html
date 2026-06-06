@@ -34,6 +34,7 @@
         <button onclick="openTab('week3',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🥩 Week 3</button>
         <button onclick="openTab('week4',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍤 Week 4</button>
         <button onclick="openTab('week5',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🌮 Week 5</button>
+        <button onclick="openTab('week6',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🧄 Week 6</button>
         <button onclick="openTab('rules',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">⚙️ System Rules</button>
         <button onclick="openTab('weekend',this)" class="tab-btn px-4 py-3 text-blue-100 hover:text-white outline-none whitespace-nowrap border-transparent rounded-t">🍟 Weekend Eats</button>
     </div>
@@ -605,6 +606,185 @@
                         <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Black Beans</span></label>
                         <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 can Sweet Corn</span></label>
                         <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Garlic Powder, Onion Powder, Cumin, Cinnamon, Seasoned Salt</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ WEEK 6 -->
+    <div id="week6" class="tab-content">
+        <div class="bg-gradient-to-r from-green-700 to-green-500 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🧄 Week 6: Garlic Parmesan Chicken Week</h2>
+            <p class="text-green-50">One recipe, two completely different meals. A double batch of air fryer (or oven-baked) garlic parmesan chicken gets cooked on Sunday — pounded thin, marinated in parmesan, lemon, and vinegar, and finished in 12 minutes flat. Half the batch goes over a proper Greek salad for lunches. The other half gets a roasted veggie side for suppers. Essentially zero points, genuinely restaurant-quality, and the easiest prep week of the rotation.</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 6 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w6-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0 pt):</strong> <a href="#w6-greek-salad" class="text-blue-600 underline font-semibold hover:text-blue-800">Garlic Parmesan Chicken Greek Salad Bowl</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w6-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w6-chicken" class="text-blue-600 underline font-semibold hover:text-blue-800">Garlic Parmesan Chicken</a> with <a href="#w6-veggies" class="text-blue-600 underline font-semibold hover:text-blue-800">Roasted Mediterranean Veggies</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 6 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w6-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w6-chicken" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🧄 Air Fryer Garlic Parmesan Chicken <span class="text-sm font-normal text-gray-400">(adapted from Life in the Lofthouse)</span></h4>
+                <p class="text-sm text-gray-500 mb-3">Pounded thin, marinated in parmesan and lemon, done in 12 minutes. Make a double batch — 4 breasts for suppers, 4 for slicing over Greek salad lunches. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 8 breasts (double batch)</span></p>
+                <div class="tip-box"><strong>WW Swap:</strong> The original recipe uses 1 tbsp olive oil per pound of chicken. Swapping that for zero-point cooking spray brings this to essentially 0 pts per serving — the small amount of parmesan divided across 8 breasts rounds to 0. If you want to keep a tiny drizzle of olive oil for flavour, add 1 tsp to the marinade and it stays under 1 pt per serving.</div>
+                <div class="tip-box"><strong>No Air Fryer?</strong> Bake at 400°F for 25 minutes until internal temp reaches 165°F. Works perfectly.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients (double batch — 8 breasts)</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>8 boneless skinless chicken breasts</li>
+                            <li>4 tbsp grated Parmesan cheese</li>
+                            <li>4 tbsp white vinegar</li>
+                            <li>4 tsp lemon juice</li>
+                            <li>2 tsp garlic powder</li>
+                            <li>1 tsp dried oregano</li>
+                            <li>1 tsp onion powder</li>
+                            <li>½ tsp crushed red pepper flakes</li>
+                            <li>Salt &amp; pepper to taste</li>
+                            <li>Zero-point non-stick cooking spray</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>Pound the chicken:</strong> Use a meat mallet or rolling pin to flatten each breast to an even thickness — this is what makes them tender and juicy, not dry.</li>
+                            <li><strong>Make the marinade:</strong> In a bowl, mix parmesan, white vinegar, lemon juice, garlic powder, oregano, onion powder, red pepper flakes, salt, and pepper. Mix well.</li>
+                            <li><strong>Coat:</strong> Dredge each breast into the marinade, coating both sides thoroughly.</li>
+                            <li><strong>Air fry in batches:</strong> Spray air fryer basket with zero-point spray. Cook in a single layer at 375°F for 12 minutes. Do not stack or overlap. Rest 2 minutes before slicing.</li>
+                            <li><strong>Portion:</strong> Let all 8 breasts cool. Slice 4 and store for Greek Salad lunches. Keep 4 whole for suppers alongside Roasted Mediterranean Veggies.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w6-greek-salad" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥗 Garlic Parmesan Chicken Greek Salad Bowl</h4>
+                <p class="text-sm text-gray-500 mb-3">A proper Greek salad — not a diet salad. Big, crunchy, tangy, and loaded with zero-point volume. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches</span></p>
+                <div class="tip-box"><strong>Pro Tip:</strong> The dressing is just red wine vinegar, lemon juice, and oregano — all zero points. The olives and optional crumbled feta are the only point drivers. A small amount of each goes a long way here; don't skip them, they're what makes it taste like a real Greek salad.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Salad Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>4 sliced Garlic Parmesan Chicken breasts (from above)</li>
+                            <li>1 large head Romaine lettuce (chopped)</li>
+                            <li>1 English cucumber (diced)</li>
+                            <li>1 cup cherry tomatoes (halved)</li>
+                            <li>½ red onion (thinly sliced)</li>
+                            <li>1 green bell pepper (diced)</li>
+                            <li>Kalamata olives (~5 per bowl, ~1 pt worth)</li>
+                            <li><em>Optional:</em> Crumbled feta (~1 tbsp per bowl, ~1 pt)</li>
+                        </ul>
+                        <h5 class="font-semibold text-blue-600 mt-3 mb-2">Zero-Point Greek Dressing</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>3 tbsp red wine vinegar</li>
+                            <li>Juice of ½ lemon</li>
+                            <li>1 tsp dried oregano</li>
+                            <li>½ tsp garlic powder</li>
+                            <li>Salt &amp; pepper to taste</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>The Dressing:</strong> Whisk red wine vinegar, lemon juice, oregano, garlic powder, salt, and pepper together. Taste and adjust.</li>
+                            <li><strong>Build the base:</strong> Divide romaine into 4 containers. Top each with cucumber, cherry tomatoes, red onion, and green pepper.</li>
+                            <li><strong>Add olives &amp; feta:</strong> Scatter kalamata olives over each bowl. Add a small crumble of feta if using.</li>
+                            <li><strong>Add chicken:</strong> Fan sliced garlic parmesan chicken over the top of each bowl.</li>
+                            <li><strong>Dress at lunchtime:</strong> Pack the dressing separately and drizzle on right before eating to keep everything crisp.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w6-veggies" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🫑 Roasted Mediterranean Veggies</h4>
+                <p class="text-sm text-gray-500 mb-3">A zero-point sheet pan side — roasted until the edges caramelize. Perfect alongside the garlic parmesan chicken. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 supper sides</span></p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>2 zucchini (sliced into half-moons)</li>
+                            <li>2 bell peppers (any color), chopped</li>
+                            <li>1 cup cherry tomatoes (whole)</li>
+                            <li>1 red onion (chopped)</li>
+                            <li>1 tsp garlic powder</li>
+                            <li>1 tsp dried oregano or Italian seasoning</li>
+                            <li>Salt &amp; pepper to taste</li>
+                            <li>Zero-point non-stick cooking spray</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li>Preheat oven to 425°F. Line a large sheet pan with foil and spray with zero-point cooking spray.</li>
+                            <li>Spread all veggies in a single layer. Spray the tops lightly.</li>
+                            <li>Season with garlic powder, oregano, salt, and pepper.</li>
+                            <li>Roast 20-25 minutes until edges start to caramelize and char slightly. Don't crowd the pan — use two pans if needed.</li>
+                            <li>Divide into 4 containers alongside the 4 whole supper chicken breasts.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w6-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 6 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>8 Boneless Skinless Chicken Breasts</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Cottage Cheese or Greek Yogurt</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small block/bag Grated Parmesan</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span><em>Optional:</em> Small block Feta Cheese (for Greek salad)</span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Large Head Romaine Lettuce</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 English Cucumber</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 cups Cherry Tomatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Red Onion &amp; 1 Green Bell Pepper (for salad)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Zucchini &amp; 2 Bell Peppers (for roasted veggies)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Lemons</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Canned Goods</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>White Vinegar</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Red Wine Vinegar</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Small jar Kalamata Olives</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Garlic Powder, Onion Powder, Oregano, Red Pepper Flakes, Cinnamon</span></label>
                         <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
                     </div>
                 </div>
