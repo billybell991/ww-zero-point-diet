@@ -33,7 +33,7 @@
     </div>
 </div>
 <header class="text-white shadow-lg sticky top-0 z-50 px-6 py-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%); border-bottom: 2px solid rgba(59,130,246,0.5);">
-    <div class="max-w-5xl mx-auto grid grid-cols-4 sm:grid-cols-8 gap-2">
+    <div class="max-w-5xl mx-auto grid grid-cols-5 sm:grid-cols-9 gap-2">
         <button onclick="openTab('week1',this)" class="tab-btn active text-white outline-none py-2 px-1 text-center">
             <span class="btn-emoji">🍗</span><span class="btn-label">Week 1</span>
         </button>
@@ -51,6 +51,9 @@
         </button>
         <button onclick="openTab('week6',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
             <span class="btn-emoji">🧄</span><span class="btn-label">Week 6</span>
+        </button>
+        <button onclick="openTab('week7',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
+            <span class="btn-emoji">🥙</span><span class="btn-label">Week 7</span>
         </button>
         <button onclick="openTab('rules',this)" class="tab-btn text-blue-100 outline-none py-2 px-1 text-center">
             <span class="btn-emoji">⚙️</span><span class="btn-label">Rules</span>
@@ -816,6 +819,220 @@
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════ WEEK 7 -->
+    <div id="week7" class="tab-content">
+        <div class="bg-gradient-to-r from-amber-700 to-amber-500 text-white rounded-xl p-6 mb-8 shadow-md">
+            <h2 class="text-2xl font-bold mb-2">🥙 Week 7: Shawarma Bowl Week</h2>
+            <p class="text-amber-50">All the bold flavours of a classic shawarma — without the bread. Spiced chicken gets prepped on Sunday, then it carries two completely different meals. Lunches are cold shawarma bowls loaded with pickles, pickled beets, fresh tomatoes, and cucumber, hit with a genuinely zero-point garlic sauce. Suppers pair that same chicken with crispy spiced roasted potatoes smothered in more garlic sauce. Zero points. Maximum flavour. Maximum volume.</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 7 Meal Plan</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
+            <p><strong>Breakfast (1 pt):</strong> <a href="#w7-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a></p>
+            <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
+            <p><strong>Lunch (0 pt):</strong> <a href="#w7-bowl" class="text-blue-600 underline font-semibold hover:text-blue-800">Shawarma Bowl</a></p>
+            <p><strong>PM Snack (0 pt):</strong> <a href="#w7-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
+            <p><strong>Supper (0 pt):</strong> <a href="#w7-potatoes" class="text-blue-600 underline font-semibold hover:text-blue-800">Shawarma Roasted Potatoes</a> + Shawarma Chicken + <a href="#w7-garlic-sauce" class="text-blue-600 underline font-semibold hover:text-blue-800">Zero-Point Garlic Sauce</a></p>
+            <p><strong>Late Snack:</strong> 2 cups air-popped popcorn (canola oil &amp; salt)</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">📖 Week 7 Recipes</h3>
+        <div class="space-y-6 mb-8">
+
+            <div id="w7-oatmeal" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥣 Maple Cinnamon Oatmeal</h4>
+                <p class="text-sm text-gray-500 mb-4">A warm, filling, and perfectly sweet morning classic.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>½ cup Rolled Oatmeal</li><li>¾ cup Water</li><li>Small shot of Maple Syrup</li><li>Sprinkle of Cinnamon</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Combine oatmeal and water in a microwave-safe bowl.</li><li>Microwave on High for 2 minutes.</li><li>Stir in maple syrup and sprinkle cinnamon on top.</li></ol></div>
+                </div>
+            </div>
+
+            <div id="w7-chicken" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🫕 Shawarma Spiced Chicken</h4>
+                <p class="text-sm text-gray-500 mb-3">One big batch powers both the lunch bowls and the supper potato plates. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 8 portions (4 lunches + 4 suppers) · 0 pts</span></p>
+                <div class="tip-box"><strong>Sunday Prep:</strong> Make one big batch. Half goes into the 4 lunch bowls cold. The other half gets paired with roasted potatoes for suppers — reheat in the air fryer for 3 minutes at 375°F to bring it back to life.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Shawarma Spice Blend</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>2 tsp cumin</li>
+                            <li>2 tsp coriander</li>
+                            <li>1½ tsp paprika (regular or smoked)</li>
+                            <li>1 tsp turmeric</li>
+                            <li>½ tsp cinnamon</li>
+                            <li>½ tsp cayenne pepper <em>(optional, for heat)</em></li>
+                            <li>1 tsp garlic powder</li>
+                            <li>1 tsp onion powder</li>
+                            <li>Salt &amp; pepper to taste</li>
+                        </ul>
+                        <h5 class="font-semibold text-blue-600 mt-3 mb-2">Chicken</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>2 lbs boneless skinless chicken breasts</li>
+                            <li>Juice of 1 lemon</li>
+                            <li>Zero-point non-stick cooking spray</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>Mix the spice blend</strong> in a small bowl. Set aside.</li>
+                            <li><strong>Slice the chicken</strong> into thin strips (~½ inch wide). Thinner = more surface area = more flavour.</li>
+                            <li><strong>Marinate:</strong> Toss chicken strips with the spice blend and lemon juice. Coat thoroughly. Let sit 15–30 mins, or marinate overnight in the fridge.</li>
+                            <li><strong>Cook:</strong> Spray a large non-stick skillet or grill pan over medium-high heat. Cook chicken in batches — 3–4 minutes per side until cooked through and slightly charred at the edges. Don't overcrowd the pan.</li>
+                            <li><strong>Portion:</strong> Let cool. Divide into 8 portions. 4 go into the lunch bowls (served cold). 4 go into supper containers to be reheated alongside the roasted potatoes.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w7-garlic-sauce" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🧄 Zero-Point Garlic Sauce (Toum-Style)</h4>
+                <p class="text-sm text-gray-500 mb-3">The real reason this week exists. Outrageously garlicky and creamy. Goes on everything. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">0 pts · Yields: ~1 cup</span></p>
+                <div class="tip-box"><strong>The key:</strong> Traditional toum is an oil-bomb — amazing, but 40+ pts. This version swaps the oil for fat-free Greek yogurt or blended fat-free cottage cheese. You get 95% of the flavour at 0 points. Use <em>fresh</em> garlic cloves — not powder — it's the only non-negotiable here.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>1 cup fat-free plain Greek yogurt <em>or</em> 1 cup fat-free cottage cheese (blended smooth)</li>
+                            <li>4–6 cloves fresh garlic, minced or pressed</li>
+                            <li>2 tbsp fresh lemon juice</li>
+                            <li>¼ tsp salt (or to taste)</li>
+                            <li>Pinch of white pepper <em>(optional)</em></li>
+                        </ul>
+                        <h5 class="font-semibold text-blue-600 mt-3 mb-2">Optional add-ins</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>½ tsp cumin (for a deeper Middle Eastern flavour)</li>
+                            <li>1 tbsp fresh flat-leaf parsley, finely minced</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li><strong>If using cottage cheese:</strong> Blend it first until completely smooth — a stick blender or small food processor works perfectly.</li>
+                            <li><strong>Combine:</strong> Mix yogurt (or blended cottage cheese) with pressed garlic, lemon juice, salt, and pepper.</li>
+                            <li><strong>Taste and adjust:</strong> More garlic for more punch. More lemon for brightness. A pinch more salt rounds it out.</li>
+                            <li><strong>Chill:</strong> Cover and refrigerate at least 30 minutes before serving. The flavour deepens significantly as it sits — overnight is even better.</li>
+                            <li><strong>Use generously</strong> on the bowls, the roasted potatoes, or anything else on the plate. Don't be shy with it — it's zero points.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w7-bowl" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥙 Shawarma Bowl</h4>
+                <p class="text-sm text-gray-500 mb-3">All the flavours of a classic shawarma, no bread required. Load it high. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 lunches · 0 pts</span></p>
+                <div class="tip-box"><strong>Your secret weapons:</strong> The pickles and pickled beets are what make a shawarma taste like a shawarma — they cut through the richness and add the signature tang. You've already got them. Pack them separately so everything stays crisp until lunchtime.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Per Bowl</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>1 portion Shawarma Spiced Chicken (from recipe above)</li>
+                            <li>Large handful shredded cabbage <em>or</em> romaine lettuce (base)</li>
+                            <li>½ cup diced tomatoes</li>
+                            <li>½ cup diced cucumber</li>
+                            <li>¼ cup thinly sliced red onion</li>
+                            <li>Handful fresh flat-leaf parsley, roughly chopped</li>
+                            <li>Pickles (already on hand) — packed on the side</li>
+                            <li>Pickled beets (already on hand) — packed on the side</li>
+                            <li>Big dollop of Zero-Point Garlic Sauce (packed separately)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Assembly</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li>Layer shredded cabbage or romaine as the base in each container.</li>
+                            <li>Top with diced tomatoes, cucumber, and red onion.</li>
+                            <li>Add the cold shawarma chicken on top.</li>
+                            <li>Scatter parsley over everything.</li>
+                            <li>Pack the garlic sauce in a small side container — drizzle on right before eating.</li>
+                            <li>Bring the pickles and pickled beets on the side. They're the payoff.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w7-potatoes" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🥔 Shawarma Roasted Potatoes</h4>
+                <p class="text-sm text-gray-500 mb-3">Crispy, spiced, zero-point, and built to be buried in garlic sauce. <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">Yields: 4 supper sides · 0 pts</span></p>
+                <div class="tip-box"><strong>The move:</strong> Dust the cubed potatoes with the same shawarma spice blend as the chicken. When you ladle the garlic sauce over top at suppertime, the whole plate ties together perfectly — one cohesive meal from one spice blend.</div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>4–5 medium yellow or russet potatoes, cubed (~1 inch)</li>
+                            <li>1 tsp cumin</li>
+                            <li>1 tsp paprika</li>
+                            <li>½ tsp turmeric</li>
+                            <li>½ tsp garlic powder</li>
+                            <li>Salt &amp; pepper to taste</li>
+                            <li>Zero-point non-stick cooking spray</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Instructions</h5>
+                        <ol class="list-decimal pl-5 text-sm space-y-1">
+                            <li>Preheat oven to 425°F. Line a large sheet pan with foil and spray generously.</li>
+                            <li>Cube potatoes and spread in a single layer on the pan. Spray tops with cooking spray.</li>
+                            <li>Toss with cumin, paprika, turmeric, garlic powder, salt, and pepper.</li>
+                            <li>Roast 30–35 minutes, flipping halfway through, until golden and crispy at the edges.</li>
+                            <li>Divide into 4 containers alongside the 4 shawarma chicken supper portions.</li>
+                            <li><strong>At suppertime:</strong> Reheat in the microwave or air fryer (3 mins at 375°F keeps them crispy). Top with a genuinely generous gob of Zero-Point Garlic Sauce.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div id="w7-tropical" class="recipe-card bg-white p-6 rounded-lg shadow border border-gray-200 scroll-mt-32">
+                <h4 class="text-xl font-bold mb-1">🍍 Tropical Fruit Bowl</h4>
+                <p class="text-sm text-gray-500 mb-4">Sweet, creamy, high-protein PM snack.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Ingredients</h5><ul class="list-disc pl-5 text-sm space-y-1"><li>1 cup Fat-free Cottage Cheese or Greek Yogurt</li><li>½ cup diced Pineapple</li><li>1 Apple (diced)</li></ul></div>
+                    <div><h5 class="font-semibold text-blue-600 mb-2">Instructions</h5><ol class="list-decimal pl-5 text-sm space-y-1"><li>Add cottage cheese or yogurt to a bowl.</li><li>Top with pineapple and diced apple. Enjoy cold.</li></ol></div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-700 mb-3">🛒 Week 7 Shopping List</h3>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Proteins &amp; Dairy</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 lbs Boneless Skinless Chicken Breasts</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 dozen eggs (for hard boiling)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Large tub Fat-Free Plain Greek Yogurt <em>(garlic sauce + PM snack)</em></span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span><em>Or:</em> Large tub Fat-Free Cottage Cheese <em>(garlic sauce + PM snack)</em></span></label>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Produce</h4>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Full Head Fresh Garlic <em>(fresh is essential for the sauce)</em></span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 Lemons</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>4 medium Tomatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>2 English Cucumbers</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Red Onion</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>1 Small Head Cabbage <em>or</em> 1 Head Romaine (bowl base)</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Bunch of Fresh Flat-Leaf Parsley</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>4–5 medium Yellow or Russet Potatoes</span></label>
+                    <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Pineapple &amp; Apples</span></label>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="font-bold text-gray-700 bg-gray-100 p-2 rounded mb-2">Pantry &amp; Spices</h4>
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Plain Rolled Oats &amp; Maple Syrup</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Cumin &amp; Coriander</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Paprika (regular or smoked)</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Turmeric &amp; Cinnamon</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Garlic Powder &amp; Onion Powder</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Cayenne Pepper <em>(optional)</em></span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1"><input type="checkbox" class="w-4 h-4"><span>Popcorn Kernels &amp; Canola Oil</span></label>
+                        <label class="flex items-center space-x-2 mt-2 p-1 text-gray-400"><input type="checkbox" class="w-4 h-4"><span><em>Already on hand: Pickles &amp; Pickled Beets ✓</em></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ═══════════════════════════════════════════ SYSTEM RULES -->
     <div id="rules" class="tab-content">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">System Rules</h2>
@@ -830,6 +1047,8 @@
                     <li><strong>The 8:15 PM Sleep Payload:</strong> Melatonin timed-release, 2x Mag Bisglycinate, 1x Omega 3-6-9. CPAP dock. No late night oatmeal.</li>
                     <li><strong>Drinks Rule:</strong> Coke Zero before 2PM. Bubly whenever. Calorie-Free Cran to break up the water boredom.</li>
                     <li><strong>The "Trailer/Weekend" Rule:</strong> Stick to the pre-packed main containers, but budget for a "fun not piggy" treat (e.g., 1 butter tart, small bowl Pringles).</li>
+                    <li><strong>Wednesday Take-Out Night:</strong> Planned break from the meal plan — one take-out night per week. Use the <a href="#" onclick="openTab('weekend', document.querySelector('[onclick=\'openTab(\\\'weekend\\\',this)\']')); return false;" class="text-blue-600 underline font-semibold hover:text-blue-800">Restaurant tab</a> rules as your guide. Smart choices, not a free-for-all.</li>
+                    <li><strong>The Weekend Window:</strong> From Friday supper through the end of Saturday — full free-for-all. Enjoy it guilt-free. Sunday morning it's back on the wagon, meal prep ready to go.</li>
                 </ul>
             </div>
         </div>
