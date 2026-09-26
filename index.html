@@ -183,7 +183,7 @@
 
         <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 2 Meal Plan</h3>
         <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
-            <p><strong>Breakfast (1 pt):</strong> <a href="#w2-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a> or <a href="#w2-muffins" class="text-blue-600 underline font-semibold hover:text-blue-800">2 Sweet Banana-Oat Muffins</a> <span class="text-xs text-gray-500">(about 40 fewer kcal)</span></p>
+            <p><strong>Breakfast (1 pt):</strong> Days 1, 3, 5 &amp; 7: <a href="#w2-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a>. Days 2, 4 &amp; 6: <a href="#w2-muffins" class="text-blue-600 underline font-semibold hover:text-blue-800">2 Sweet Banana-Oat Muffins</a>.</p>
             <p><strong>AM Snack (0 pt):</strong> <a href="#w2-ranch" class="text-blue-600 underline font-semibold hover:text-blue-800">Garlic Ranch Veggie Dip</a> with raw veggie sticks</p>
             <p><strong>Lunch (0-1 pt):</strong> <a href="#w2-balsamic" class="text-blue-600 underline font-semibold hover:text-blue-800">Balsamic Chicken Bowl</a></p>
             <p><strong>PM Snack (0 pt):</strong> <a href="#w2-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
@@ -637,7 +637,7 @@
 
         <h3 class="text-xl font-bold text-gray-700 mb-3">📅 Week 5 Meal Plan</h3>
         <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 mb-8 space-y-3">
-            <p><strong>Breakfast (1 pt):</strong> <a href="#w5-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a> or <a href="#w5-muffins" class="text-blue-600 underline font-semibold hover:text-blue-800">2 Sweet Banana-Oat Muffins</a> <span class="text-xs text-gray-500">(about 40 fewer kcal)</span></p>
+            <p><strong>Breakfast (1 pt):</strong> Days 1, 3, 5 &amp; 7: <a href="#w5-oatmeal" class="text-blue-600 underline font-semibold hover:text-blue-800">Maple Oatmeal</a>. Days 2, 4 &amp; 6: <a href="#w5-muffins" class="text-blue-600 underline font-semibold hover:text-blue-800">2 Sweet Banana-Oat Muffins</a>.</p>
             <p><strong>AM Snack (0 pt):</strong> 1 Hard Boiled Egg</p>
             <p><strong>Lunch (0 pt):</strong> <a href="#w5-scramble" class="text-blue-600 underline font-semibold hover:text-blue-800">Spinach &amp; Tomato Egg Scramble</a></p>
             <p><strong>PM Snack (0 pt):</strong> <a href="#w5-tropical" class="text-blue-600 underline font-semibold hover:text-blue-800">Tropical Fruit Bowl</a>, apple, or banana</p>
@@ -1753,10 +1753,10 @@
 
     const dailyPlans = {
         week1: { total: 1158, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Southwest Chicken Bowl', 300], ['PM snack: Tropical Fruit Bowl', 295], ["Supper: Dan's Chili", 250], ['Late snack: popcorn', 65]] },
-        week2: { total: 1365, meals: [['Breakfast', 170], ['AM snack: ranch & vegetables', 115], ['Lunch: Balsamic Chicken Bowl', 290], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Egg & Potato Hash', 430], ['Late snack: popcorn', 65]] },
+        week2: { total: 1365, alternateTotal: 1325, breakfastRotation: 'Days 1, 3, 5, and 7: Maple Oatmeal (170 kcal). Days 2, 4, and 6: 2 Sweet Banana-Oat Muffins (130 kcal).', meals: [['Breakfast — Days 1, 3, 5, 7: oatmeal', 170], ['Breakfast — Days 2, 4, 6: 2 muffins', 130], ['AM snack: ranch & vegetables', 115], ['Lunch: Balsamic Chicken Bowl', 290], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Egg & Potato Hash', 430], ['Late snack: popcorn', 65]] },
         week3: { total: 1403, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Burger Bowl + Mushroom Salad', 410], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Beef, Potato & Cabbage Stew', 380], ['Late snack: popcorn', 70]] },
         week4: { total: 1400, meals: [['Breakfast', 170], ['AM snack: Buffalo dip & vegetables', 95], ['Lunch: Shrimp & Sweet Potato Hash', 350], ['PM snack: Tropical Fruit Bowl', 295], ["Supper: Shepherd's Pie", 420], ['Late snack: popcorn', 70]] },
-        week5: { total: 1243, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Egg Scramble', 220], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Melt Chicken & Fiesta Salad', 410], ['Late snack: popcorn', 70]] },
+        week5: { total: 1243, alternateTotal: 1203, breakfastRotation: 'Days 1, 3, 5, and 7: Maple Oatmeal (170 kcal). Days 2, 4, and 6: 2 Sweet Banana-Oat Muffins (130 kcal).', meals: [['Breakfast — Days 1, 3, 5, 7: oatmeal', 170], ['Breakfast — Days 2, 4, 6: 2 muffins', 130], ['AM snack: hard-boiled egg', 78], ['Lunch: Egg Scramble', 220], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Melt Chicken & Fiesta Salad', 410], ['Late snack: popcorn', 70]] },
         week6: { total: 1210, meals: [['Breakfast', 170], ['AM snack: ranch & vegetables', 115], ['Lunch: Greek Salad Bowl', 270], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Chicken + Mediterranean Vegetables', 290], ['Late snack: popcorn', 70]] },
         week7: { total: 1168, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Shawarma Bowl', 260], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Chicken, potatoes & garlic sauce', 295], ['Late snack: popcorn', 70]] }
     };
@@ -1874,10 +1874,10 @@
         const content = document.createElement('div');
         const intro = document.createElement('p');
         intro.className = 'text-sm text-slate-600';
-        intro.textContent = 'After creating the recurring recipes, add the listed serving for each item to one day in your YAZIO Diary. Then use YAZIO’s Copy function to repeat that day across the week.';
+        intro.textContent = plan.breakfastRotation ? `Create the recurring recipes, then log the breakfast that matches each day: ${plan.breakfastRotation} Use YAZIO’s Copy function for the remaining meals.` : 'After creating the recurring recipes, add the listed serving for each item to one day in your YAZIO Diary. Then use YAZIO’s Copy function to repeat that day across the week.';
         const total = document.createElement('p');
         total.className = 'mt-4 rounded bg-green-50 px-3 py-2 font-bold text-green-900';
-        total.textContent = `Planned day total: ${plan.total.toLocaleString()} kcal`;
+        total.textContent = plan.alternateTotal ? `Oatmeal days: ${plan.total.toLocaleString()} kcal · Muffin days: ${plan.alternateTotal.toLocaleString()} kcal` : `Planned day total: ${plan.total.toLocaleString()} kcal`;
         const list = document.createElement('ul');
         list.className = 'mt-4 divide-y divide-slate-100 text-sm text-slate-700';
         plan.meals.forEach(([name, calories]) => {
@@ -1907,7 +1907,7 @@
         const mealPlan = week.querySelector('h3 + div');
         const summary = document.createElement('section');
         summary.className = 'nutrition-panel mb-8';
-        summary.innerHTML = `<div class="flex flex-wrap justify-between gap-3 items-start"><div><h3 class="font-bold text-green-900">Daily calorie-deficit snapshot</h3><p class="text-sm text-green-800 mt-1">Planned day: <strong>${plan.total.toLocaleString()} kcal</strong>. This uses the listed default snack and portion choices.</p></div><button type="button" class="yazio-copy">YAZIO</button></div><div class="grid sm:grid-cols-2 gap-x-6 gap-y-1 mt-3 text-sm text-green-900">${plan.meals.map(([name, calories]) => `<p>${name}<strong class="float-right">${calories} kcal</strong></p>`).join('')}</div><p class="text-xs text-green-800 mt-3">Create recurring recipes once, add the listed servings to one day, then use YAZIO's Copy function to repeat that day.</p>`;
+        summary.innerHTML = `<div class="flex flex-wrap justify-between gap-3 items-start"><div><h3 class="font-bold text-green-900">Daily calorie-deficit snapshot</h3><p class="text-sm text-green-800 mt-1">${plan.alternateTotal ? `Oatmeal days: <strong>${plan.total.toLocaleString()} kcal</strong> · Muffin days: <strong>${plan.alternateTotal.toLocaleString()} kcal</strong>.` : `Planned day: <strong>${plan.total.toLocaleString()} kcal</strong>.`} This uses the listed default snack and portion choices.</p></div><button type="button" class="yazio-copy">YAZIO</button></div>`;
         summary.querySelector('button').addEventListener('click', () => openDaySetup(weekId, plan));
         mealPlan.after(summary);
     });
