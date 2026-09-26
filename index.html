@@ -26,6 +26,11 @@
         .nutrition-chip { background: #ffffff; border: 1px solid #d1fae5; border-radius: 0.25rem; padding: 0.3rem 0.5rem; color: #166534; font-size: 0.75rem; font-weight: 700; }
         .yazio-copy { background: #166534; color: #ffffff; border-radius: 0.25rem; padding: 0.42rem 0.7rem; font-size: 0.75rem; font-weight: 700; transition: background 0.15s ease; }
         .yazio-copy:hover { background: #14532d; }
+        .yazio-modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem; background: rgba(15, 23, 42, 0.68); }
+        .yazio-modal.open { display: flex; }
+        .yazio-modal-card { width: min(100%, 38rem); max-height: min(44rem, calc(100vh - 2rem)); overflow-y: auto; background: #ffffff; border-radius: 0.5rem; box-shadow: 0 24px 48px rgba(15, 23, 42, 0.28); }
+        .yazio-modal-close { color: #475569; font-size: 1.5rem; line-height: 1; padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
+        .yazio-modal-close:hover { background: #f1f5f9; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-50 to-blue-50 text-gray-800 font-sans min-h-screen">
@@ -1729,12 +1734,83 @@
         week7: { total: 1168, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Shawarma Bowl', 260], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Chicken, potatoes & garlic sauce', 295], ['Late snack: popcorn', 70]] }
     };
 
-    function copyText(button, text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const label = button.textContent;
-            button.textContent = 'Copied for YAZIO';
-            window.setTimeout(() => button.textContent = label, 1600);
+    const yazioModal = document.createElement('div');
+    yazioModal.className = 'yazio-modal';
+    yazioModal.setAttribute('role', 'dialog');
+    yazioModal.setAttribute('aria-modal', 'true');
+    yazioModal.setAttribute('aria-labelledby', 'yazio-modal-title');
+    yazioModal.innerHTML = '<div class="yazio-modal-card"><div class="flex items-start justify-between gap-4 p-5 border-b border-slate-200"><div><p class="text-xs font-bold uppercase tracking-wide text-green-700">YAZIO setup</p><h2 id="yazio-modal-title" class="text-xl font-bold text-slate-900 mt-1"></h2></div><button type="button" class="yazio-modal-close" aria-label="Close YAZIO setup">&times;</button></div><div class="p-5" id="yazio-modal-content"></div></div>';
+    document.body.append(yazioModal);
+
+    function openYazioModal(title, content) {
+        yazioModal.querySelector('#yazio-modal-title').textContent = title;
+        const container = yazioModal.querySelector('#yazio-modal-content');
+        container.replaceChildren(content);
+        yazioModal.classList.add('open');
+        yazioModal.querySelector('.yazio-modal-close').focus();
+    }
+
+    function closeYazioModal() {
+        yazioModal.classList.remove('open');
+    }
+
+    yazioModal.querySelector('.yazio-modal-close').addEventListener('click', closeYazioModal);
+    yazioModal.addEventListener('click', event => {
+        if (event.target === yazioModal) closeYazioModal();
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeYazioModal();
+    });
+
+    function nutritionChips(calories, protein, carbs, fat) {
+        const chips = document.createElement('div');
+        chips.className = 'flex flex-wrap gap-2 mt-4';
+        [`${calories} kcal`, `Protein ${protein} g`, `Carbs ${carbs} g`, `Fat ${fat} g`].forEach(label => {
+            const chip = document.createElement('span');
+            chip.className = 'nutrition-chip';
+            chip.textContent = label;
+            chips.append(chip);
         });
+        return chips;
+    }
+
+    function openRecipeSetup(title, data, card) {
+        const [calories, protein, carbs, fat, portion, servings, yazioIngredients] = data;
+        const content = document.createElement('div');
+        const intro = document.createElement('p');
+        intro.className = 'text-sm text-slate-600';
+        intro.textContent = `Create this as a recipe in YAZIO, add the ingredients below, then set the yield to ${servings} serving${servings === '1' ? '' : 's'}. Log ${portion} when you eat it.`;
+        const estimate = document.createElement('p');
+        estimate.className = 'text-xs text-slate-500 mt-3';
+        estimate.textContent = `Estimate basis: ${yazioIngredients}. Use your exact brands and weights in YAZIO for the final numbers.`;
+        const ingredientsTitle = document.createElement('h3');
+        ingredientsTitle.className = 'font-bold text-slate-900 mt-5 mb-2';
+        ingredientsTitle.textContent = 'Ingredients to add in YAZIO';
+        const ingredients = card.querySelector('.grid > div:first-child').cloneNode(true);
+        ingredients.querySelectorAll('p').forEach(paragraph => paragraph.remove());
+        ingredients.className = 'text-sm text-slate-700 space-y-3';
+        content.append(intro, nutritionChips(calories, protein, carbs, fat), estimate, ingredientsTitle, ingredients);
+        openYazioModal(title, content);
+    }
+
+    function openDaySetup(weekId, plan) {
+        const content = document.createElement('div');
+        const intro = document.createElement('p');
+        intro.className = 'text-sm text-slate-600';
+        intro.textContent = 'After creating the recurring recipes, add the listed serving for each item to one day in your YAZIO Diary. Then use YAZIO’s Copy function to repeat that day across the week.';
+        const total = document.createElement('p');
+        total.className = 'mt-4 rounded bg-green-50 px-3 py-2 font-bold text-green-900';
+        total.textContent = `Planned day total: ${plan.total.toLocaleString()} kcal`;
+        const list = document.createElement('ul');
+        list.className = 'mt-4 divide-y divide-slate-100 text-sm text-slate-700';
+        plan.meals.forEach(([name, calories]) => {
+            const item = document.createElement('li');
+            item.className = 'flex justify-between gap-4 py-2';
+            item.innerHTML = `<span>${name}</span><strong>${calories} kcal</strong>`;
+            list.append(item);
+        });
+        content.append(intro, total, list);
+        openYazioModal(`${weekId.replace('week', 'Week ')} daily plan`, content);
     }
 
     Object.entries(nutrition).forEach(([id, data]) => {
@@ -1744,8 +1820,8 @@
         const heading = card.querySelector('h4').textContent.replace(/\s*\(.+\)\s*$/, '').trim();
         const panel = document.createElement('div');
         panel.className = 'nutrition-panel';
-        panel.innerHTML = `<div class="flex flex-wrap items-center justify-between gap-3"><div><p class="font-bold text-green-900 text-sm">YAZIO estimate <span class="font-normal text-green-800">per ${portion} · recipe makes ${servings} serving${servings === '1' ? '' : 's'}</span></p><p class="text-xs text-green-800 mt-1">Recipe basis: ${yazioIngredients}.</p></div><button type="button" class="yazio-copy">Copy YAZIO entry</button></div><div class="flex flex-wrap gap-2 mt-3"><span class="nutrition-chip">${calories} kcal</span><span class="nutrition-chip">Protein ${protein} g</span><span class="nutrition-chip">Carbs ${carbs} g</span><span class="nutrition-chip">Fat ${fat} g</span></div>`;
-        panel.querySelector('button').addEventListener('click', event => copyText(event.currentTarget, `${heading}\nServing: ${portion}\nRecipe servings: ${servings}\nCalories: ${calories} kcal\nProtein: ${protein} g | Carbs: ${carbs} g | Fat: ${fat} g\nYAZIO estimate assumes: ${yazioIngredients}.`));
+        panel.innerHTML = `<div class="flex flex-wrap items-center justify-between gap-3"><div><p class="font-bold text-green-900 text-sm">YAZIO estimate <span class="font-normal text-green-800">per ${portion} · recipe makes ${servings} serving${servings === '1' ? '' : 's'}</span></p><p class="text-xs text-green-800 mt-1">Recipe basis: ${yazioIngredients}.</p></div><button type="button" class="yazio-copy">YAZIO setup</button></div><div class="flex flex-wrap gap-2 mt-3"><span class="nutrition-chip">${calories} kcal</span><span class="nutrition-chip">Protein ${protein} g</span><span class="nutrition-chip">Carbs ${carbs} g</span><span class="nutrition-chip">Fat ${fat} g</span></div>`;
+        panel.querySelector('button').addEventListener('click', () => openRecipeSetup(heading, data, card));
         card.querySelector('.grid').before(panel);
     });
 
@@ -1754,9 +1830,8 @@
         const mealPlan = week.querySelector('h3 + div');
         const summary = document.createElement('section');
         summary.className = 'nutrition-panel mb-8';
-        const lines = plan.meals.map(([name, calories]) => `${name}: ${calories} kcal`).join('\n');
-        summary.innerHTML = `<div class="flex flex-wrap justify-between gap-3 items-start"><div><h3 class="font-bold text-green-900">Daily calorie-deficit snapshot</h3><p class="text-sm text-green-800 mt-1">Planned day: <strong>${plan.total.toLocaleString()} kcal</strong>. This uses the listed default snack and portion choices.</p></div><button type="button" class="yazio-copy">Copy daily log</button></div><div class="grid sm:grid-cols-2 gap-x-6 gap-y-1 mt-3 text-sm text-green-900">${plan.meals.map(([name, calories]) => `<p>${name}<strong class="float-right">${calories} kcal</strong></p>`).join('')}</div><p class="text-xs text-green-800 mt-3">For YAZIO, create each meal as a recipe once using the copied serving details, then add one serving. Brand labels, oils, toppings, and restaurant portions can change the total.</p>`;
-        summary.querySelector('button').addEventListener('click', event => copyText(event.currentTarget, `YAZIO daily plan (${weekId.replace('week', 'Week ')})\n${lines}\nTotal: ${plan.total} kcal`));
+        summary.innerHTML = `<div class="flex flex-wrap justify-between gap-3 items-start"><div><h3 class="font-bold text-green-900">Daily calorie-deficit snapshot</h3><p class="text-sm text-green-800 mt-1">Planned day: <strong>${plan.total.toLocaleString()} kcal</strong>. This uses the listed default snack and portion choices.</p></div><button type="button" class="yazio-copy">YAZIO day setup</button></div><div class="grid sm:grid-cols-2 gap-x-6 gap-y-1 mt-3 text-sm text-green-900">${plan.meals.map(([name, calories]) => `<p>${name}<strong class="float-right">${calories} kcal</strong></p>`).join('')}</div><p class="text-xs text-green-800 mt-3">Create recurring recipes once, add the listed servings to one day, then use YAZIO's Copy function to repeat that day.</p>`;
+        summary.querySelector('button').addEventListener('click', () => openDaySetup(weekId, plan));
         mealPlan.after(summary);
     });
 </script>
