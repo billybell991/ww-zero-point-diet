@@ -22,6 +22,10 @@
         .recipe-card { transition: transform 0.15s ease, box-shadow 0.2s ease; }
         .recipe-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
         .tip-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 0.75rem 1rem; border-radius: 0.25rem; font-size: 0.875rem; margin-bottom: 1rem; }
+        .nutrition-panel { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; padding: 0.85rem 1rem; border-radius: 0.375rem; margin: 0.8rem 0 1rem; }
+        .nutrition-chip { background: #ffffff; border: 1px solid #d1fae5; border-radius: 0.25rem; padding: 0.3rem 0.5rem; color: #166534; font-size: 0.75rem; font-weight: 700; }
+        .yazio-copy { background: #166534; color: #ffffff; border-radius: 0.25rem; padding: 0.42rem 0.7rem; font-size: 0.75rem; font-weight: 700; transition: background 0.15s ease; }
+        .yazio-copy:hover { background: #14532d; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-50 to-blue-50 text-gray-800 font-sans min-h-screen">
@@ -29,7 +33,7 @@
 <div class="text-white px-6 pt-6 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%);">
     <div class="max-w-5xl mx-auto">
         <h1 class="text-2xl font-bold tracking-tight">🥗 Zero-Point WW Blitz</h1>
-        <p class="text-blue-100 mt-0.5 text-xs tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan</p>
+        <p class="text-blue-100 mt-0.5 text-xs tracking-wide">High-Protein · Low-Effort · Auto-Pilot Meal Plan · YAZIO-ready calorie estimates</p>
     </div>
 </div>
 <header class="text-white shadow-lg sticky top-0 z-50 px-6 py-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #0284c7 100%); border-bottom: 2px solid rgba(59,130,246,0.5);">
@@ -1703,6 +1707,58 @@
             el.classList.add('text-white');
         }
     }
+
+    // Estimates use typical Canadian grocery nutrition labels. Weigh and scan your exact brands in YAZIO for final logging.
+    const nutrition = {
+        'w1-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w1-southwest': [300, 31, 36, 3, '1 prepared bowl', '4', '4 oz skinless chicken, beans, corn, salsa'], 'w1-chili': [250, 32, 26, 2, '1/4 recipe', '4', '99% turkey, kidney beans, tomatoes, vegetables'], 'w1-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'],
+        'w2-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w2-balsamic': [290, 30, 28, 5, '1 prepared bowl', '4', '4 oz skinless chicken, black beans, vegetables, olives'], 'w2-hash': [430, 22, 55, 15, '1 supper', '1', '10 oz potato, 2 eggs, onion, pepper, cooking spray'], 'w2-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'], 'w2-ranch': [115, 12, 14, 0, '1 snack', '1', '1/2 cup nonfat Greek yogurt + 1 cup raw vegetables'],
+        'w3-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w3-burger': [360, 34, 18, 16, '1 prepared bowl', '4', '4 oz 93% lean beef, cottage-cheese sauce, lettuce, pickles'], 'w3-mushroom': [50, 3, 9, 0, '1/4 recipe', '4', 'mushrooms, celery, onion, arugula, vinegar dressing'], 'w3-cucumber': [50, 4, 9, 0, '1/4 recipe', '4', 'cucumber, fat-free Greek yogurt, fat-free mayo'], 'w3-stew': [380, 35, 45, 9, '1/4 recipe', '4', '4 oz lean stew beef, potato, cabbage, vegetables, broth'], 'w3-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'],
+        'w4-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w4-shrimp': [350, 35, 47, 2, '1/4 recipe', '4', '6 oz shrimp, sweet potato, peppers, onion, cooking spray'], 'w4-shepherds': [420, 37, 56, 3, '1/4 recipe', '4', '99% turkey, potato, corn, cottage cheese, broth'], 'w4-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'], 'w4-buffalo': [95, 12, 12, 0, '1 snack', '1', '1/2 cup nonfat Greek yogurt, hot sauce, 1 cup vegetables'],
+        'w5-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w5-scramble': [220, 19, 4, 15, '1/4 recipe', '4', '3 eggs, tomato, spinach, cooking spray'], 'w5-fiesta': [410, 49, 37, 8, '1 chicken breast + 1/4 salad', '4', 'chicken breast, yogurt-parmesan coating, black beans, corn, vegetables'], 'w5-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'],
+        'w6-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w6-chicken': [210, 35, 2, 6, '1 chicken breast', '4', '6 oz chicken breast with 1 tbsp parmesan per serving'], 'w6-greek-salad': [270, 28, 18, 11, '1 prepared bowl', '4', '1/2 chicken breast, vegetables, olives, optional feta, vinegar dressing'], 'w6-veggies': [80, 4, 17, 1, '1/4 recipe', '4', 'zucchini, peppers, tomatoes, onion, cooking spray'], 'w6-cucumber': [50, 4, 9, 0, '1/4 recipe', '4', 'cucumber, fat-free Greek yogurt, fat-free mayo'], 'w6-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple'], 'w6-ranch': [115, 12, 14, 0, '1 snack', '1', '1/2 cup nonfat Greek yogurt + 1 cup raw vegetables'],
+        'w7-oatmeal': [170, 5, 33, 3, '1 bowl', '1', '1/2 cup dry oats + 1 tsp maple syrup'], 'w7-chicken': [130, 25, 0, 3, '1 of 8 portions', '8', '3 oz skinless rotisserie chicken breast'], 'w7-garlic-sauce': [35, 6, 3, 0, '1/4 cup', '4', 'fat-free Greek yogurt or cottage cheese, garlic, lemon'], 'w7-bowl': [260, 30, 23, 5, '1 prepared bowl', '4', 'rotisserie chicken, vegetables, 1/4 cup garlic sauce, pickles, beets'], 'w7-potatoes': [230, 5, 52, 0, '1/4 recipe', '4', '1 medium potato, spices, cooking spray'], 'w7-tropical': [295, 28, 48, 0, '1 bowl', '1', '1 cup fat-free cottage cheese, pineapple, apple']
+    };
+
+    const dailyPlans = {
+        week1: { total: 1158, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Southwest Chicken Bowl', 300], ['PM snack: Tropical Fruit Bowl', 295], ["Supper: Dan's Chili", 250], ['Late snack: popcorn', 65]] },
+        week2: { total: 1365, meals: [['Breakfast', 170], ['AM snack: ranch & vegetables', 115], ['Lunch: Balsamic Chicken Bowl', 290], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Egg & Potato Hash', 430], ['Late snack: popcorn', 65]] },
+        week3: { total: 1403, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Burger Bowl + Mushroom Salad', 410], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Beef, Potato & Cabbage Stew', 380], ['Late snack: popcorn', 70]] },
+        week4: { total: 1400, meals: [['Breakfast', 170], ['AM snack: Buffalo dip & vegetables', 95], ['Lunch: Shrimp & Sweet Potato Hash', 350], ['PM snack: Tropical Fruit Bowl', 295], ["Supper: Shepherd's Pie", 420], ['Late snack: popcorn', 70]] },
+        week5: { total: 1243, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Egg Scramble', 220], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Melt Chicken & Fiesta Salad', 410], ['Late snack: popcorn', 70]] },
+        week6: { total: 1210, meals: [['Breakfast', 170], ['AM snack: ranch & vegetables', 115], ['Lunch: Greek Salad Bowl', 270], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Chicken + Mediterranean Vegetables', 290], ['Late snack: popcorn', 70]] },
+        week7: { total: 1168, meals: [['Breakfast', 170], ['AM snack: hard-boiled egg', 78], ['Lunch: Shawarma Bowl', 260], ['PM snack: Tropical Fruit Bowl', 295], ['Supper: Chicken, potatoes & garlic sauce', 295], ['Late snack: popcorn', 70]] }
+    };
+
+    function copyText(button, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const label = button.textContent;
+            button.textContent = 'Copied for YAZIO';
+            window.setTimeout(() => button.textContent = label, 1600);
+        });
+    }
+
+    Object.entries(nutrition).forEach(([id, data]) => {
+        const [calories, protein, carbs, fat, portion, servings, yazioIngredients] = data;
+        const card = document.getElementById(id);
+        if (!card) return;
+        const heading = card.querySelector('h4').textContent.replace(/\s*\(.+\)\s*$/, '').trim();
+        const panel = document.createElement('div');
+        panel.className = 'nutrition-panel';
+        panel.innerHTML = `<div class="flex flex-wrap items-center justify-between gap-3"><div><p class="font-bold text-green-900 text-sm">YAZIO estimate <span class="font-normal text-green-800">per ${portion} · recipe makes ${servings} serving${servings === '1' ? '' : 's'}</span></p><p class="text-xs text-green-800 mt-1">Recipe basis: ${yazioIngredients}.</p></div><button type="button" class="yazio-copy">Copy YAZIO entry</button></div><div class="flex flex-wrap gap-2 mt-3"><span class="nutrition-chip">${calories} kcal</span><span class="nutrition-chip">Protein ${protein} g</span><span class="nutrition-chip">Carbs ${carbs} g</span><span class="nutrition-chip">Fat ${fat} g</span></div>`;
+        panel.querySelector('button').addEventListener('click', event => copyText(event.currentTarget, `${heading}\nServing: ${portion}\nRecipe servings: ${servings}\nCalories: ${calories} kcal\nProtein: ${protein} g | Carbs: ${carbs} g | Fat: ${fat} g\nYAZIO estimate assumes: ${yazioIngredients}.`));
+        card.querySelector('.grid').before(panel);
+    });
+
+    Object.entries(dailyPlans).forEach(([weekId, plan]) => {
+        const week = document.getElementById(weekId);
+        const mealPlan = week.querySelector('h3 + div');
+        const summary = document.createElement('section');
+        summary.className = 'nutrition-panel mb-8';
+        const lines = plan.meals.map(([name, calories]) => `${name}: ${calories} kcal`).join('\n');
+        summary.innerHTML = `<div class="flex flex-wrap justify-between gap-3 items-start"><div><h3 class="font-bold text-green-900">Daily calorie-deficit snapshot</h3><p class="text-sm text-green-800 mt-1">Planned day: <strong>${plan.total.toLocaleString()} kcal</strong>. This uses the listed default snack and portion choices.</p></div><button type="button" class="yazio-copy">Copy daily log</button></div><div class="grid sm:grid-cols-2 gap-x-6 gap-y-1 mt-3 text-sm text-green-900">${plan.meals.map(([name, calories]) => `<p>${name}<strong class="float-right">${calories} kcal</strong></p>`).join('')}</div><p class="text-xs text-green-800 mt-3">For YAZIO, create each meal as a recipe once using the copied serving details, then add one serving. Brand labels, oils, toppings, and restaurant portions can change the total.</p>`;
+        summary.querySelector('button').addEventListener('click', event => copyText(event.currentTarget, `YAZIO daily plan (${weekId.replace('week', 'Week ')})\n${lines}\nTotal: ${plan.total} kcal`));
+        mealPlan.after(summary);
+    });
 </script>
 </body>
 </html>
