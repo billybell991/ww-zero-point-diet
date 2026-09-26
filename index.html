@@ -1774,6 +1774,44 @@
         return chips;
     }
 
+    function yazioIngredientInfo(ingredient) {
+        const text = ingredient.toLowerCase();
+        if (text.includes('oatmeal')) return ['Rolled oats', '1/2 cup', '40 g', 150];
+        if (text.includes('maple syrup')) return ['Maple syrup', '1 tsp', '5 mL', 17];
+        if (text.includes('water') || text.includes('salt') || text.includes('pepper') || text.includes('cooking spray')) return [ingredient, 'as listed', 'as listed', 0];
+        if (text.includes('cinnamon') || text.includes('seasoning') || text.includes('spice') || text.includes('powder') || text.includes('oregano') || text.includes('paprika') || text.includes('cumin') || text.includes('turmeric') || text.includes('thyme') || text.includes('dill')) return [ingredient, '1 tsp', '2 g', 5];
+        if (text.includes('ground turkey')) return ['99% lean ground turkey', '1 lb', '454 g', 480];
+        if (text.includes('ground beef') || text.includes('beef stew')) return ['Lean beef', '1 lb', '454 g', 680];
+        if (text.includes('chicken breast')) return ['Skinless chicken breast', '1 lb', '454 g', 750];
+        if (text.includes('rotisserie chicken') || text.includes('shredded chicken')) return ['Skinless rotisserie chicken breast', '1 lb', '454 g', 750];
+        if (text.includes('shrimp')) return ['Shrimp', '1 1/2 lb', '680 g', 680];
+        if (text.includes('egg')) return ['Whole eggs', '3 large', '150 g', 216];
+        if (text.includes('black beans') || text.includes('kidney beans')) return ['Canned beans, drained', '1 can', '255 g drained', 280];
+        if (text.includes('sweet corn') || text.includes('kernel corn') || text.includes('niblets')) return ['Canned sweet corn, drained', '1 can', '250 g drained', 230];
+        if (text.includes('potato')) return ['Potatoes', '1 medium', '170 g', 130];
+        if (text.includes('sweet potato')) return ['Sweet potato', '1 medium', '130 g', 112];
+        if (text.includes('fat-free cottage cheese')) return ['Fat-free cottage cheese', '1 cup', '226 g', 160];
+        if (text.includes('greek yogurt')) return ['Nonfat Greek yogurt', '1 cup', '245 g', 130];
+        if (text.includes('parmesan')) return ['Grated Parmesan', '1 tbsp', '5 g', 21];
+        if (text.includes('mayonnaise')) return ['Fat-free mayonnaise', '1 tbsp', '15 g', 10];
+        if (text.includes('pineapple')) return ['Pineapple', '1/2 cup', '82 g', 40];
+        if (text.includes('apple')) return ['Apple', '1 medium', '182 g', 95];
+        if (text.includes('olive')) return ['Kalamata olives', '5 olives', '20 g', 29];
+        if (text.includes('feta')) return ['Crumbled feta', '1 tbsp', '9 g', 24];
+        if (text.includes('broth')) return ['Low-sodium broth', '1 cup', '240 mL', 15];
+        if (text.includes('worcestershire')) return ['Worcestershire sauce', '1 tbsp', '15 mL', 13];
+        if (text.includes('tomato paste')) return ['Tomato paste', '1 tbsp', '16 g', 13];
+        if (text.includes('salsa')) return ['Fat-free salsa', '1/2 cup', '120 g', 40];
+        if (text.includes('ketchup')) return ['Low-sugar ketchup', '1 tbsp', '15 g', 10];
+        if (text.includes('vinegar') || text.includes('lemon') || text.includes('lime') || text.includes('hot sauce')) return [ingredient, '1 tbsp', '15 mL', 3];
+        if (text.includes('pickles') || text.includes('beet')) return [ingredient, '1/2 cup', '75 g', 20];
+        if (text.includes('lettuce') || text.includes('spinach') || text.includes('arugula') || text.includes('cabbage')) return [ingredient, '2 cups', '60 g', 15];
+        if (text.includes('mushroom') || text.includes('cucumber') || text.includes('celery') || text.includes('zucchini')) return [ingredient, '1 cup', '100 g', 20];
+        if (text.includes('onion') || text.includes('pepper') || text.includes('tomato') || text.includes('carrot') || text.includes('corn')) return [ingredient, '1 cup', '150 g', 35];
+        if (text.includes('garlic')) return ['Fresh garlic', '1 clove', '3 g', 4];
+        return [ingredient, 'planning amount', 'weigh in g', 0];
+    }
+
     function openRecipeSetup(title, data, card) {
         const [calories, protein, carbs, fat, portion, servings, yazioIngredients] = data;
         const content = document.createElement('div');
@@ -1785,11 +1823,15 @@
         estimate.textContent = `Estimate basis: ${yazioIngredients}. Use your exact brands and weights in YAZIO for the final numbers.`;
         const ingredientsTitle = document.createElement('h3');
         ingredientsTitle.className = 'font-bold text-slate-900 mt-5 mb-2';
-        ingredientsTitle.textContent = 'Ingredients to add in YAZIO';
-        const ingredients = card.querySelector('.grid > div:first-child').cloneNode(true);
-        ingredients.querySelectorAll('p').forEach(paragraph => paragraph.remove());
-        ingredients.className = 'text-sm text-slate-700 space-y-3';
-        content.append(intro, nutritionChips(calories, protein, carbs, fat), estimate, ingredientsTitle, ingredients);
+        ingredientsTitle.textContent = 'Batch ingredient planning ledger';
+        const notice = document.createElement('p');
+        notice.className = 'text-xs text-slate-500 mb-3';
+        notice.textContent = 'Amounts and calories are recipe-batch planning estimates. Add them as a YAZIO recipe, then set its yield to the serving count above. Where the original recipe is flexible, use the listed amount as a starting point and scan your exact brand or weigh it in grams.';
+        const table = document.createElement('div');
+        table.className = 'overflow-x-auto border border-slate-200 rounded';
+        const ingredientRows = [...card.querySelectorAll('.grid > div:first-child li')].map(item => yazioIngredientInfo(item.textContent.trim()));
+        table.innerHTML = `<table class="w-full text-left text-xs text-slate-700"><thead class="bg-slate-50 text-slate-600"><tr><th class="p-2">Ingredient</th><th class="p-2">Imperial</th><th class="p-2">Metric</th><th class="p-2 text-right">kcal</th></tr></thead><tbody>${ingredientRows.map(([name, imperial, metric, itemCalories]) => `<tr class="border-t border-slate-100"><td class="p-2">${name}</td><td class="p-2">${imperial}</td><td class="p-2">${metric}</td><td class="p-2 text-right font-bold">${itemCalories}</td></tr>`).join('')}</tbody></table>`;
+        content.append(intro, nutritionChips(calories, protein, carbs, fat), estimate, ingredientsTitle, notice, table);
         openYazioModal(title, content);
     }
 
